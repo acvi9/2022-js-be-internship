@@ -15,7 +15,7 @@ Depending on the type of user, the system has different functionalities. Types o
 - list of students
 - list of professors
 - exam results
-- personal data change	
+- personal data chang
 
 ### **Students have access to the following functionalities:**
 - exam registration
