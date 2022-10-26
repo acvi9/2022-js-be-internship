@@ -30,4 +30,6 @@ Depending on the type of user, the system has different functionalities. Types o
 - course creation
 - course update
 
+-------------------------------------------------------------------------------------------------------------------
+
 
