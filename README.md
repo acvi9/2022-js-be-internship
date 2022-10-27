@@ -32,13 +32,36 @@ Depending on the type of user, the system has different functionalities. Types o
 
 -------------------------------------------------------------------------------------------------------------------
 
-App setup: 
-- npm init -y
-- npm install express (current version is 4.18.2 (npm install express@4.18.2))
-- npm install --save-dev nodemon (current version is 2.0.20)
-- --in package.json in scripts make this script "start": "nodemon index.js" and make index.js file in our project
-- npm start
- 
-Jest setup:
-- npm install --save-dev jest (current version is 29.2.2 (npm install jest@29.2.2))
-- To run a test (npm test)
+## Application Setup:
+
+#### Initialize Project
+```
+npm init -y
+```
+
+### Install ExpressJS and Nodemon
+``` 
+npm install express 
+npm install --save-dev nodemon
+```
+
+### Configure Nodemon
+Change the start script tag in ```package.json``` 
+```
+{
+   "start": "nodemon {{fileName}}"
+}
+```
+
+### Install Jest
+
+```
+npm install --save-dev jest
+```
+
+
+## Versions:
+
+- ExpressJS (4.18.2)
+- Nodemon (2.0.20)
+- Jest (29.2.2)
