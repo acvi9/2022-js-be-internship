@@ -4,7 +4,7 @@
   "description": "Depending on the type of user, the system has different functionalities. Types of users are students and professors.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon index.js"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "jest": "^29.2.2",
     "nodemon": "^2.0.20"
   }
 }
