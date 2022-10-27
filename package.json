@@ -1,0 +1,27 @@
+{
+  "name": "2022-js-be-internship",
+  "version": "1.0.0",
+  "description": "Depending on the type of user, the system has different functionalities. Types of users are students and professors.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acvi9/2022-js-be-internship.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acvi9/2022-js-be-internship/issues"
+  },
+  "homepage": "https://github.com/acvi9/2022-js-be-internship#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
