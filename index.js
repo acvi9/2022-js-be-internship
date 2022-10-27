@@ -6,5 +6,7 @@ app.get('/', (req,res)=>{
     res.send("Hello world!");
 });
 
-app.listen(port);
-console.log(`Express app is running on localhost:${port}`);
+app.listen(port, ()=>{
+    console.log(`Express app is running on localhost:${port}`);
+});
+
