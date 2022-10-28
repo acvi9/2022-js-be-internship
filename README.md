@@ -43,7 +43,7 @@ The API is built in **JavaScript** (with **ESLint** assistance) with the **Expre
 
 ## Application Setup:
 
-#### Initialize Project
+### Initialize Project
 ```
 npm init -y
 ```
@@ -68,9 +68,26 @@ Change the start script tag in ```package.json```
 npm install --save-dev jest
 ```
 
+### Install Swagger
+
+```
+npm install swagger-jsdoc
+npm install swagger-ui-express
+```
+
+
+### Database Configuration
+
+**database name:** college_organization<br>
+**user:** root<br>
+**password:** levi9internship
+<br>
 
 ## Versions:
 
+- NodeJS (16.0.0 + )
 - ExpressJS (4.18.2)
 - Nodemon (2.0.20)
 - Jest (29.2.2)
+- Swagger-jsdoc (6.2.5)
+- Swagger-ui-express (4.5.9)
