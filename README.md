@@ -43,45 +43,12 @@ The API is built in **JavaScript** (with **ESLint** assistance) with the **Expre
 
 ## Application Setup:
 
-### Initialize Project
-```
-npm init -y
-```
-
-### Install ExpressJS and Nodemon
-``` 
-npm install express 
-npm install --save-dev nodemon
-```
-
-### Configure Nodemon
-Change the start script tag in ```package.json``` 
-```
-{
-   "start": "nodemon {{fileName}}"
-}
-```
-
-### Install Jest
-
-```
-npm install --save-dev jest
-```
-
-### Install Swagger
-
-```
-npm install swagger-jsdoc
-npm install swagger-ui-express
-```
+**1 -** Clone repository<br>
+**2 -** Start Database<br>
+**3 -** Install packages ```npm install```<br>
+**4 -** Run the server ```node index.js``` or ```nodemon index.js```
 
 
-### Database Configuration
-
-**database name:** college_organization<br>
-**user:** root<br>
-**password:** levi9internship
-<br>
 
 ## Versions:
 
