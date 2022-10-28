@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/acvi9/2022-js-be-internship#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
     "eslint": "^8.26.0",
