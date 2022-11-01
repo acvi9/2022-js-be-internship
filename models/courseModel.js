@@ -6,16 +6,12 @@ const Course = database.define("course",{
         type: DataTypes.STRING,
         allowNull: false
     },
-    surname: {
+    description: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    password: {
-        type: DataTypes.STRING,
+    espb: {
+        type: DataTypes.INTEGER,
         allowNull: false
     }
 },
