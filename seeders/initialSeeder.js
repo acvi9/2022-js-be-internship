@@ -12,7 +12,7 @@ database.sync()
                 email: "milos@gmail.com"
             },
             defaults:{
-                name: "Milos3",
+                name: "Milos",
                 surname: "Milosavljevic",
                 password: "123"
             }
@@ -24,7 +24,6 @@ database.sync()
             return profId.id
         })
         .then((id) =>{
-            console.log("\n"+id+"\n")
             Course.findOrCreate({
                 where: {name: "Math"},
                 defaults:{
