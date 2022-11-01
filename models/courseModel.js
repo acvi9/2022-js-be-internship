@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const database = require('../config/database');
+const database = require('../config/db-config');
 
 const Course = database.define("course",{
     name: {
@@ -13,6 +13,10 @@ const Course = database.define("course",{
     espb: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    professorId:{
+        type: DataTypes.INTEGER,
+        
     }
 },
 {
