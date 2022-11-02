@@ -2,7 +2,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 
 const options = {
-    definition: {
+	definition: {
 		openapi: "3.0.0",
 		info: {
 			title: "Library API",
@@ -15,7 +15,7 @@ const options = {
 			},
 		],
 	},
-    apis: ["./index.js"],
+	apis: ["./index.js"],
 }
 
 const specs = swaggerJSDoc(options);
@@ -29,29 +29,7 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
  *   description: Quick example for swagger
  */
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Example:
- *       type: object
- *       required:
- *         - name
- *         - author
- *       properties:
- *         id:
- *           type: string
- *           description: Example id
- *           example: d5fE_asz
- *         name:
- *           type: string
- *           description: Example name
- *           example: Example 2
- *         exampleNumber:
- *           type: number
- *           description: Example number
- *           example: 3
- */
+
 
 /**
  * @openapi
@@ -75,10 +53,11 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
  *       500:
  *         description: Server error
  */
-app.get('/swagger-example', (req,res)=>{
-    res.json({
-        "id" : "a0s9djaosa",
-        "name": "name 1",
-        "exampleNumber": 2
-    });
+app.get('/swagger-example', (req, res) => {
+	res.json({
+		"id": "a0s9djaosa",
+		"name": "name 1",
+		"exampleNumber": 2
+	});
 });
+
