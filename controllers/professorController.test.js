@@ -1,18 +1,22 @@
-const professorController = require('./professorController');
+const SequelizeMock = require('sequelize-mock');
+const dbMock = new SequelizeMock();
+const professorModel = require('../models/professorModel');
 
-describe('Professor Controller', () => {
-    describe('listAllProfessors', () => {
-        test('should return 200 when get all professors', async () => {
-            const res = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis()
-            };
+const ProfessorMock = dbMock.define('professor', {
+    name: 'Andrija',
+    surname: 'Stankovic',
+    email: 'andrija@gmail.com',
+    password: '123456'}, {
+    instanceMethods: {
+        listAllProfessors: () => {
+            return ProfessorMock.findAll();
+        }
+    }
+});
 
-            await professorController.listAllProfessors(null, res);
-            
-            expect(res.status).toHaveBeenCalledWith(200);
-            expect(res.json).toHaveBeenCalled();
-        });
-    });
-
+// test for listAllProfessors
+test('listAllProfessors', async () => {
+    const professor = await ProfessorMock.findAll();
+    const professors = await professor.listAllProfessors();
+    expect(professors).toEqual([professor]);
 });
