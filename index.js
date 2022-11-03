@@ -1,16 +1,47 @@
 const express = require("express");
-const app = express();
+const database = require("./config/db-config");
+const ProfessorRoute = require('./routes/professorRoutes');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
-const port = 3000;
+const app = express();
+require('dotenv').config();
+const port = process.env.PORT || 3000;
+const host = process.env.DB_HOST || 'localhost';
+
+// Connecting to Database
+database.authenticate()
+	.then(() => {
+		console.log(`Connection has been established successfully. ${database.config.database}`);
+
+	})
+	.catch((error) => {
+		console.error('Unable to connect to the database: ', error);
+	});
+
+
+
+app.get('/', (req, res) => {
+	res.send("Hello world!");
+});
+
+
+app.use('/', ProfessorRoute);
+
+
+app.listen(port, host, () => {
+	console.log(`Express app is running on ${host}:${port}`);
+});
+
+
+
 
 const options = {
-    definition: {
+	definition: {
 		openapi: "3.0.0",
 		info: {
-			title: "Library API",
+			title: "College Organization API",
 			version: "1.0.0",
-			description: "A simple Express Library API",
+			description: "A simple Express College Organization API.",
 		},
 		servers: [
 			{
@@ -18,80 +49,22 @@ const options = {
 			},
 		],
 	},
-    apis: ["./index.js"],
+	apis: ["./index.js", "./models/professorModel.js", "./models/studentModel.js", "./models/courseModel.js", "./models/termsModel.js",
+		"./routes/professorRoutes.js", "./routes/studentRoutes.js", "./routes/courseRoutes.js", "./routes/termsRoutes.js"],
 }
 
 const specs = swaggerJSDoc(options);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-
-/**
- * @openapi
- * tags:
- *   name: Example
- *   description: Quick example for swagger
- */
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Example:
- *       type: object
- *       required:
- *         - name
- *         - author
- *       properties:
- *         id:
- *           type: string
- *           description: Example id
- *           example: d5fE_asz
- *         name:
- *           type: string
- *           description: Example name
- *           example: Example 2
- *         exampleNumber:
- *           type: number
- *           description: Example number
- *           example: 3
- */
-
-/**
- * @openapi
- * /swagger-example:
- *   get:
- *     summary: Just a simple swagger example
- *     tags: [Example]
- *     responses:
- *       200:
- *         description: Example returned
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               items:
- *                 $ref: '#/components/schemas/Example'
- *               example:
- *                 id: d5fE_asz
- *                 name: Example 1
- *                 exampleNumber: 5
- *       500:
- *         description: Server error
- */
-app.get('/swagger-example', (req,res)=>{
-    res.json({
-        "id" : "a0s9djaosa",
-        "name": "name 1",
-        "exampleNumber": 2
-    });
+app.get('/swagger-example', (req, res) => {
+	res.json({
+		"id": "a0s9djaosa",
+		"name": "name 1",
+		"exampleNumber": 2
+	});
 });
 
-
-app.get('/', (req,res)=>{
-    res.send("Hello world!");
-});
-
-app.listen(port, ()=>{
-    console.log(`Express app is running on localhost:${port}`);
-});
-
+module.exports =  {
+	host,
+	port
+};
