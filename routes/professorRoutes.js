@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { listAllProfessors } = require('../controllers/professorController');
+const { listAllProfessors } = require('../controllers/professors/professorController');
 
-router.get('/professors', listAllProfessors);
+router.get('/', listAllProfessors);
 
 module.exports = router;
 

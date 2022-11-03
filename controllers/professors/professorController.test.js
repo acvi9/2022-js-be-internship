@@ -1,7 +1,7 @@
 const request = require('supertest');
-const {host,port} = require('../index');
+const {host,port} = require('../../index');
 const {professorMock} = require('./professorMock');
-const {STATUS_CODES} = require('../constants');
+const {STATUS_CODES} = require('../../constants');
 const server = `${host}:${port}`;
 
 

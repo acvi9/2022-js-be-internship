@@ -9,9 +9,9 @@ app.get('/', (req, res) => {
 });
 
 
-app.use('/', ProfessorRoute);
-app.use('/', TermsRoute);
-app.use('/', StudentRoute)
+app.use('/students', StudentRoute)
+app.use('/professors', ProfessorRoute);
+app.use('/terms', TermsRoute);
 
 
 module.exports = app

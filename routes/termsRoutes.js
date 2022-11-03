@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { listAllTerms } = require('../controllers/terms/termsController');
 
-router.get('/terms', listAllTerms);
+router.get('/', listAllTerms);
 
 module.exports = router;
 
