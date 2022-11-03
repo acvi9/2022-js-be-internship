@@ -44,9 +44,19 @@ The API is built in **JavaScript** (with **ESLint** assistance) with the **Expre
 ## Application Setup:
 
 **1 -** Clone repository<br>
-**2 -** Start Database<br>
-**3 -** Install packages ```npm install```<br>
-**4 -** Run the server ```node index.js``` or ```nodemon index.js```
+**2 -** Create ***.env*** and configure your password:
+```
+DB_NAME = "college_organization"
+DB_USERNAME = "root"
+DB_PASSWORD = "{{ YOUR_PASSWORD }}"
+DB_HOST = "localhost"
+DB_DIALECT = "mysql"
+PORT = 3000
+```
+
+
+**3 -** Start database in MySQL Workbench<br>
+**4 -** Run application setup script ```npm run app-setup```<br>
 
 
 

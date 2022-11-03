@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "app-setup": "npm install && node db-sync.js && node ./seeders/initialSeeder.js && npm start",
     "start": "nodemon index.js"
   },
   "repository": {
