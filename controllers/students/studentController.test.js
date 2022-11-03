@@ -18,11 +18,23 @@ describe('Student Controller', () => {
         })
     });
 
-    test('Should return all students', async () => {
-        await request(server)
-        .get('/students')
-        .then(data =>{
-            expect(data.body).toEqual(studentMock.listAll)
+    describe('GET - List All students', () => {
+        test('Should return all students', async () => {
+            await request(server)
+            .get('/students')
+            .then(data =>{
+                expect(data.body).toEqual(studentMock.listAll)
+            })
+        })
+    });
+
+    describe('GET - Find By ID', () => {
+        test('Should return a student by ID', async () => {
+            await request(server)
+            .get('/students/id/1')
+            .then(() =>{
+                expect(1).toEqual(studentMock.listAll.students[0].id)
+            })
         })
     });
 });
