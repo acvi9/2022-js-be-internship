@@ -1,15 +1,14 @@
-const express = require("express");
 const database = require("./config/db-config");
-const ProfessorRoute = require('./routes/professorRoutes');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
-const app = express();
 require('dotenv').config();
+const app = require('./app');
 const port = process.env.PORT || 3000;
 const host = process.env.DB_HOST || 'localhost';
 
 // Connecting to Database
-database.authenticate()
+const connect = async () =>{
+	await database.authenticate()
 	.then(() => {
 		console.log(`Connection has been established successfully. ${database.config.database}`);
 
@@ -17,15 +16,8 @@ database.authenticate()
 	.catch((error) => {
 		console.error('Unable to connect to the database: ', error);
 	});
-
-
-
-app.get('/', (req, res) => {
-	res.send("Hello world!");
-});
-
-
-app.use('/', ProfessorRoute);
+}
+connect();
 
 
 app.listen(port, host, () => {
