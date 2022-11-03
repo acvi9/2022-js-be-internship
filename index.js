@@ -1,6 +1,7 @@
 const express = require("express");
 const database = require("./config/db-config");
 const ProfessorRoute = require('./routes/professorRoutes');
+const StudentRoute = require('./routes/studentRoutes.js');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const app = express();
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/', ProfessorRoute);
+app.use('/', StudentRoute);
 
 
 app.listen(port, host, () => {
