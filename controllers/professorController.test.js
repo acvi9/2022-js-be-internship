@@ -1,5 +1,7 @@
 const request = require('supertest');
 const {host,port} = require('../index');
+const {professorMock} = require('./professorMock');
+const {STATUS_CODES} = require('../constants');
 const server = `${host}:${port}`;
 
 
@@ -9,7 +11,7 @@ describe('Professor Controller', () => {
         await request(server)
         .get('/professors')
         .then(data =>{
-            expect(data.statusCode).toBe(200);
+            expect(data.statusCode).toBe(STATUS_CODES.STATUS_OK);
         })
     });
 
@@ -17,7 +19,7 @@ describe('Professor Controller', () => {
         await request(server)
         .get('/professors')
         .then(data =>{
-            expect(data.body).toEqual({"professors":[{"id":1,"name":"Milos","surname":"Milosavljevic","email":"milos@gmail.com","password":"123"}]})
+            expect(data.body).toEqual(professorMock.listAll)
         })
     });
 });
