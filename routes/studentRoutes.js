@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { listAllProfessors } = require('../controllers/professors/professorController');
+const { listAllStudents } = require('../controllers/students/studentController');
 
-router.get('/', listAllProfessors);
+router.get('/', listAllStudents);
 
 module.exports = router;
 
@@ -10,18 +10,18 @@ module.exports = router;
 /**
  * @openapi
  * tags:
- *   name: Professor Routes
- *   description: All routes for professors.
+ *   name: Student Routes
+ *   description: All routes for students.
  */
 
 
 
 /**
  * @openapi
- * /professors:
+ * /students:
  *   get:
- *     summary: Lists all professors.
- *     tags: [Professor Routes]
+ *     summary: Lists all students.
+ *     tags: [Student Routes]
  *     responses:
  *       200:
  *         description: Example returned
@@ -30,7 +30,7 @@ module.exports = router;
  *             schema:
  *               type: object
  *               schema:
- *                 $ref: '#/components/schemas/Professor'
+ *                 $ref: '#/components/schemas/Student'
  *               example:
  *                 id: 1
  *                 name: Mijodrag
