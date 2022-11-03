@@ -4,7 +4,9 @@ const ProfessorRoute = require('./routes/professorRoutes');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const app = express();
-const port = 3000;
+require('dotenv').config();
+const port = process.env.PORT || 3000;
+const host = process.env.DB_HOST || 'localhost';
 
 // Connecting to Database
 database.authenticate()
@@ -26,8 +28,8 @@ app.get('/', (req, res) => {
 app.use('/', ProfessorRoute);
 
 
-app.listen(port, () => {
-	console.log(`Express app is running on localhost:${port}`);
+app.listen(port, host, () => {
+	console.log(`Express app is running on ${host}:${port}`);
 });
 
 
@@ -62,4 +64,7 @@ app.get('/swagger-example', (req, res) => {
 	});
 });
 
-module.exports = express();
+module.exports =  {
+	host,
+	port
+};
