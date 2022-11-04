@@ -8,6 +8,10 @@ const server = app.listen(5001, host,()=>{
 
 })
 
+const mockStudentsModel = require('../../models/studentsMockModel');
+
+console.log(mockStudentsModel)
+
 describe('Student Controller', () => {
 
     test('Should test if the connection to the route is successful', async () => {
@@ -23,7 +27,7 @@ describe('Student Controller', () => {
             await request(server)
             .get('/students')
             .then(data =>{
-                expect(data.body).toEqual(studentMock.listAll)
+                expect(mockStudentsModel).toEqual(studentMock.listAll)
             })
         })
     });
@@ -35,7 +39,7 @@ describe('Student Controller', () => {
             .then(data =>{
 
                 const student = data.body;
-                expect(student.student).toEqual(studentMock.listAll.students[0])
+                expect(mockStudentsModel[0]).toEqual(studentMock.listAll[0])
             })
         })
     });
