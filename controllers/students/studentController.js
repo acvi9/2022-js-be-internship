@@ -23,7 +23,7 @@ const findByID = async (req, res) => {
         if (student) {
             res.status(STATUS_CODES.STATUS_OK).json({student});
         } else {
-            res.status(STATUS_CODES.CLIENT_ERROR).json({message: 'Student not found'});
+            res.status(STATUS_CODES.NOT_FOUND).json({message: 'Student not found'});
         }
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
