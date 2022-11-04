@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { listAllStudents, findByID, createStudent } = require('../controllers/students/studentController');
+const { listAllStudents, findByID } = require('../controllers/students/studentController');
 
 router.get('/', listAllStudents);
 router.get('/id/:id', findByID);
