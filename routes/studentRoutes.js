@@ -43,7 +43,7 @@ module.exports = router;
  
 
  * @openapi
- * /students/id/{id}:
+ * /students/{id}:
  *   get:
  *     summary: Find a student by ID.
  *     tags: [Student Routes]
