@@ -18,6 +18,7 @@ const findByID = async (req, res) => {
 
         const student = await Student.findOne({
             where: {id: ID},
+            attributes: {exclude: ['password']},
         });
         if (student) {
             res.status(STATUS_CODES.STATUS_OK).json({student});

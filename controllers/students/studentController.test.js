@@ -31,9 +31,11 @@ describe('Student Controller', () => {
     describe('GET - Find By ID', () => {
         test('Should return a student by ID', async () => {
             await request(server)
-            .get('/students/id/1')
-            .then(() =>{
-                expect(1).toEqual(studentMock.listAll.students[0].id)
+            .get('/students/1')
+            .then(data =>{
+
+                const student = data.body;
+                expect(student.student).toEqual(studentMock.listAll.students[0])
             })
         })
     });

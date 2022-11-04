@@ -3,7 +3,7 @@ const router = express.Router();
 const { listAllStudents, findByID } = require('../controllers/students/studentController');
 
 router.get('/', listAllStudents);
-router.get('/id/:id', findByID);
+router.get('/:id', findByID);
 
 module.exports = router;
 
