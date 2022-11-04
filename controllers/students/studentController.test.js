@@ -1,46 +1,39 @@
 const request = require('supertest');
-const {studentMock} = require('./studentMock');
 const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
-require('dotenv').config();
-const host = process.env.DB_HOST
-const server = app.listen(5001, host,()=>{
+const mockedStudentsData = require('../../models/__mocks__/mockedStudentsData.json');
 
+jest.mock('../../config/db-config');
+jest.mock('../../models/studentModel');
+
+
+let server 
+beforeEach(async () => {
+    server = app.listen(3000);
 })
-
-const mockStudentsModel = require('../../models/studentsMockModel');
-
-console.log(mockStudentsModel)
-
+afterEach(async () => {
+    await server.close();
+})
 describe('Student Controller', () => {
-
-    test('Should test if the connection to the route is successful', async () => {
-        await request(server)
-        .get('/students')
-        .then(data =>{
-            expect(data.statusCode).toBe(STATUS_CODES.STATUS_OK);
-        })
-    });
 
     describe('GET - List All students', () => {
         test('Should return all students', async () => {
-            await request(server)
-            .get('/students')
-            .then(data =>{
-                expect(mockStudentsModel).toEqual(studentMock.listAll)
-            })
+            const response = await request(server)
+            .get('/students');
+
+            expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(response.body).toMatchObject({"students":mockedStudentsData});
         })
     });
 
     describe('GET - Find By ID', () => {
         test('Should return a student by ID', async () => {
-            await request(server)
-            .get('/students/1')
-            .then(data =>{
+            const res = await request(server)
+            .get('/students/1');
 
-                const student = data.body;
-                expect(mockStudentsModel[0]).toEqual(studentMock.listAll[0])
-            })
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            //todo: Compare response.body with what we expect to receive here
         })
     });
+
 });
