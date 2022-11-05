@@ -40,4 +40,31 @@ describe('Student Controller', () => {
         })
     });
 
+    describe('POST - Create a new student', () => {
+        test('Should create a new student', async () => {
+
+            let newStudent = {
+                "name": "Test Student",
+                "surname": "Test Surname",
+                "email": "test@mail.com",
+                "password": "123456"
+            }
+
+            mockedStudentsData.push(newStudent);
+
+            const res = await request(server)
+            .post('/students')
+            .send(newStudent);
+
+            let lastItem = mockedStudentsData[mockedStudentsData.length - 1];
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(lastItem.name).toBe(newStudent.name);
+            expect(lastItem.surname).toBe(newStudent.surname);
+            expect(lastItem.email).toBe(newStudent.email);
+            expect(lastItem.password).toBe(newStudent.password);
+            
+        })
+    });
+
 });
