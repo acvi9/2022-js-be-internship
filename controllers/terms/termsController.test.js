@@ -1,29 +1,43 @@
 const request = require('supertest');
-const {termsMock} = require('./termsMock');
-const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
-require('dotenv').config();
-const host = process.env.DB_HOST
-const server = app.listen(5000, host,()=>{
+const {STATUS_CODES} = require('../../constants');
+const mockedTermsData = require('../../models/__mocks__/mockedTermsData.json');
 
-})
+// Mocking the database and the model
+jest.mock('../../config/db-config');
+jest.mock('../../models/termsModel.js');
 
+// Initializing the server variable
+let server;
+
+beforeEach(async () => {
+    server = app.listen(3000);
+}); // Starts server before each test
+
+afterEach(async () => {
+    await server.close();
+}); // Closes server after each test
 
 describe('Terms Controller', () => {
 
-    test('Should test if the connection to the route is successful', async () => {
-        await request(server)
-        .get('/terms')
-        .then(data =>{
-            expect(data.statusCode).toBe(STATUS_CODES.STATUS_OK);
+    describe('GET - List All terms', () => {
+        test('Should return all tests', async () => {
+            const response = await request(server)
+            .get('/terms');
+
+            expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(response.body).toMatchObject({"terms":mockedTermsData});
         })
     });
 
-    test('Should return all terms', async () => {
-        await request(server)
-        .get('/terms')
-        .then(data =>{
-            expect(data.body).toEqual(termsMock.listAll)
+    describe('GET - Find By ID', () => {
+        test('Should return a term with ID = 1', async () => {
+            const res = await request(server)
+            .get('/terms/1');
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(res.body).toMatchObject({"terms":mockedTermsData[1]});
         })
     });
+
 });

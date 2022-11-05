@@ -9,6 +9,25 @@ const listAllTerms = async (req, res) => {
     }
 }
 
+const findByID = async (req, res) => {
+    try {
+        let ID = req.params.id;
+
+        const terms = await Terms.findOne(
+            {
+                where: {id: ID}
+            }
+        );
+        if (terms) {
+            res.status(STATUS_CODES.STATUS_OK).json({terms});
+        } else {
+            res.status(STATUS_CODES.NOT_FOUND).json({message: 'Student not found'});
+        }
+    } catch (error) {
+        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+    }
+}
+
 module.exports = {
-    listAllTerms
+    listAllTerms, findByID
 }

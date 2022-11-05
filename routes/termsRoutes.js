@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { listAllTerms } = require('../controllers/terms/termsController');
+const { listAllTerms, findByID } = require('../controllers/terms/termsController');
 
 router.get('/', listAllTerms);
+router.get('/:id', findByID);
+
 
 module.exports = router;
 
