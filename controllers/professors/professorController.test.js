@@ -40,4 +40,79 @@ describe('Professor Controller', () => {
         })
     });
 
+    describe('POST - Create a new professor', () => {
+        test('Should create a new professor', async () => {
+
+            let lastID = mockedProfessorsData[mockedProfessorsData.length - 1].id;
+
+            let newProf = {
+                "id": lastID + 1,
+                "name": "Test Prof",
+                "surname": "Test Surname",
+                "email": "test@mail.com",
+                "password": "123456"
+            }
+
+            mockedProfessorsData.push(newProf);
+
+            const res = await request(server)
+            .post('/professors')
+            .send(newProf);
+
+            let lastItem = mockedProfessorsData[mockedProfessorsData.length - 1];
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(lastItem.name).toBe(newProf.name);
+            expect(lastItem.surname).toBe(newProf.surname);
+            expect(lastItem.email).toBe(newProf.email);
+            expect(lastItem.password).toBe(newProf.password);
+            
+        })
+    });
+
+    describe('DELETE - Delete a professor', () => {
+        test('Should delete a professor with ID = 3', async () => {
+
+            let lenBefore = mockedProfessorsData.length;
+
+            const res = await request(server)
+            .delete('/professors/11');
+
+            mockedProfessorsData.pop();
+
+            let lenAfter = mockedProfessorsData.length;
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(res.body).toMatchObject({"message":"Professor deleted!"})
+            expect(lenAfter).toBe(lenBefore -1);
+            //todo: check if the professor is deleted in mockedProfessorsData
+
+        })
+    })
+
+    describe('PUT - Update a professor', () => {
+        test('Should update a professor with ID = 3', async () => {
+
+            let mockLength = mockedProfessorsData.length;
+
+            let updatedProf = {
+                "id": 3,
+                "name": "Updated Prof",
+                "surname": "Updated Surname",
+                "email": "update@gmail.com",
+                "password": "123456"
+            }
+
+            const res = await request(server)
+            .put(`/professors/${updatedProf.id}`)
+            .send({
+                "message": "Professor updated!",
+            });
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(res.body).toMatchObject({"message":"Professor updated!"})
+            expect(mockLength).toBe(10);
+        })
+    })
+
 });

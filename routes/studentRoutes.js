@@ -163,7 +163,7 @@ module.exports = router;
  * @openapi
  * /students/{id}:
  *   delete:
- *     summary: Deletes a existing student..
+ *     summary: Deletes a existing student.
  *     tags: [Student Routes]
  *     parameters:
  *      - in: path
