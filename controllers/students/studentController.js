@@ -39,9 +39,6 @@ const createStudent = async (req, res) => {
             email: req.query.email,
             password: req.query.password,
         }
-
-        console.log("123", tempStudent);
-
         const student = await Student.create(tempStudent);
         res.status(STATUS_CODES.STATUS_OK).json(student);
     } catch (error) {
@@ -78,7 +75,7 @@ const updateStudent = async (req, res) => {
             where: {id: ID},
         });
         if (student) {
-            res.status(STATUS_CODES.STATUS_OK).json({message: 'Student updated successfully!'});
+            res.status(STATUS_CODES.STATUS_OK).json({message: 'Student updated!'});
         } else {
             res.status(STATUS_CODES.NOT_FOUND).json({message: 'Student not found'});
         }
