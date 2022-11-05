@@ -3,17 +3,21 @@ const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
 const mockedStudentsData = require('../../models/__mocks__/mockedStudentsData.json');
 
+// Mocking the database and the model
 jest.mock('../../config/db-config');
 jest.mock('../../models/studentModel');
 
+// Initializing the server variable
+let server;
 
-let server 
 beforeEach(async () => {
     server = app.listen(3000);
-})
+}); // Starts server before each test
+
 afterEach(async () => {
     await server.close();
-})
+}); // Closes server after each test
+
 describe('Student Controller', () => {
 
     describe('GET - List All students', () => {
@@ -27,12 +31,12 @@ describe('Student Controller', () => {
     });
 
     describe('GET - Find By ID', () => {
-        test('Should return a student by ID', async () => {
+        test('Should return a student with ID = 3', async () => {
             const res = await request(server)
-            .get('/students/1');
+            .get('/students/3');
 
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            //todo: Compare response.body with what we expect to receive here
+            expect(res.body).toMatchObject({"student":mockedStudentsData[2]});
         })
     });
 

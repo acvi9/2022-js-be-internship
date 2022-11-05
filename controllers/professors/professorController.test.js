@@ -1,25 +1,46 @@
 const request = require('supertest');
-const {host,port} = require('../../index');
-const {professorMock} = require('./professorMock');
 const {STATUS_CODES} = require('../../constants');
-const server = `${host}:${port}`;
+const app = require('../../app');
+const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
 
+// Mocking the database and the model
+jest.mock('../../config/db-config');
+jest.mock('../../models/professorModel');
+
+// Initializing the server variable
+let server;
+
+beforeEach(async () => {
+    server = app.listen(3000);
+}); // Starts server before each test
+
+afterEach(async () => {
+    await server.close();
+}); // Closes server after each test
 
 describe('Professor Controller', () => {
 
-    test('Should test if the connection to the route is successful', async () => {
-        await request(server)
-        .get('/professors')
-        .then(data =>{
-            expect(data.statusCode).toBe(STATUS_CODES.STATUS_OK);
+    describe('GET - List All professors', () => {
+        test('Should return all professors', async () => {
+            const response = await request(server)
+            .get('/professors');
+
+            expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(response.body).toMatchObject({"professors":mockedProfessorsData});
         })
     });
 
-    test('Should return all professors', async () => {
-        await request(server)
-        .get('/professors')
-        .then(data =>{
-            expect(data.body).toEqual(professorMock.listAll)
+    describe('GET - Find By ID', () => {
+        test('Should return a professor with ID = 3', async () => {
+            const res = await request(server)
+            .get('/professors/3');
+
+            console.log(res.body);
+            console.log({"professors":mockedProfessorsData})
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(res.body).toMatchObject({"professors":mockedProfessorsData[2]});
         })
     });
+
 });

@@ -1,5 +1,6 @@
 const Professor = require('../../models/professorModel');
 const {STATUS_CODES} = require('../../constants');
+
 const listAllProfessors = async (req, res) => {
     try {
         const professors = await Professor.findAll({
