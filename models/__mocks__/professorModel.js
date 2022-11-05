@@ -16,6 +16,6 @@ mockedSequelize.models.Professor.$queryInterface.$useHandler(function(query, que
   if (query === 'findAll') {
     return Promise.resolve(mockedProfessorsData);
   }
-})
+});
 
 module.exports = mockProfessor;

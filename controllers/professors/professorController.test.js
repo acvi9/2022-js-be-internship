@@ -1,6 +1,6 @@
 const request = require('supertest');
-const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
+const {STATUS_CODES} = require('../../constants');
 const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
 
 // Mocking the database and the model
@@ -35,11 +35,8 @@ describe('Professor Controller', () => {
             const res = await request(server)
             .get('/professors/3');
 
-            console.log(res.body);
-            console.log({"professors":mockedProfessorsData})
-
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(res.body).toMatchObject({"professors":mockedProfessorsData[2]});
+            expect(res.body).toMatchObject({"professor":mockedProfessorsData[2]});
         })
     });
 

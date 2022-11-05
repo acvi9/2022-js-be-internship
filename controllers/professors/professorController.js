@@ -12,7 +12,26 @@ const listAllProfessors = async (req, res) => {
     }
 }
 
+const findByID = async (req, res) => {
+    try {
+        let ID = req.params.id;
+
+        const professor = await Professor.findOne({
+            where: {id: ID},
+            attributes: {exclude: ['password']},
+        });
+        if (professor) {
+            res.status(STATUS_CODES.STATUS_OK).json({professor});
+        } else {
+            res.status(STATUS_CODES.NOT_FOUND).json({message: 'Professor not found'});
+        }
+    } catch (error) {
+        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+    }
+}
+
 module.exports = {
-    listAllProfessors
+    listAllProfessors,
+    findByID,
 }
 

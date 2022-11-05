@@ -17,4 +17,5 @@ mockedSequelize.models.Student.$queryInterface.$useHandler(function(query, query
     return Promise.resolve(mockedStudentsData);
   }
 })
+
 module.exports = mockStudent;

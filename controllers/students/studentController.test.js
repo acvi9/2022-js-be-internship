@@ -1,6 +1,6 @@
 const request = require('supertest');
-const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
+const {STATUS_CODES} = require('../../constants');
 const mockedStudentsData = require('../../models/__mocks__/mockedStudentsData.json');
 
 // Mocking the database and the model
