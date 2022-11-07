@@ -21,7 +21,7 @@ const findByID = async (req, res) => {
         if (terms) {
             res.status(STATUS_CODES.STATUS_OK).json({terms});
         } else {
-            res.status(STATUS_CODES.NOT_FOUND).json({message: 'Student not found'});
+            res.status(STATUS_CODES.NOT_FOUND).json({message: 'Term not found'});
         }
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
