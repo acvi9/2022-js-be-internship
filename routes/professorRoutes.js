@@ -122,22 +122,20 @@ module.exports = router;
  *        schema:
  *          type: integer
  *          required: true
- *      - in: query
- *        name: name
- *        schema:
- *          type: string
- *      - in: query
- *        name: surname
- *        schema:
- *          type: string
- *      - in: query
- *        name: email
- *        schema:
- *          type: string
- *      - in: query
- *        name: password
- *        schema:
- *          type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               surname:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Example returned
