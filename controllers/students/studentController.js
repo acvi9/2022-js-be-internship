@@ -34,10 +34,10 @@ const createStudent = async (req, res) => {
     try {
 
         const tempStudent = {
-            name: req.query.name,
-            surname: req.query.surname,
-            email: req.query.email,
-            password: req.query.password,
+            name: req.body.name,
+            surname: req.body.surname,
+            email: req.body.email,
+            password: req.body.password,
         }
         const student = await Student.create(tempStudent);
         res.status(STATUS_CODES.STATUS_OK).json(student);
@@ -65,15 +65,18 @@ const deleteStudent = async (req, res) => {
 
 const updateStudent = async (req, res) => {
     try {
+
         let ID = req.params.id;
+
         const student = await Student.update({
-            name: req.query.name,
-            surname: req.query.surname,
-            email: req.query.email,
-            password: req.query.password,
+            name: req.body.name,
+            surname: req.body.surname,
+            email: req.body.email,
+            password: req.body.password,
         }, {
             where: {id: ID},
         });
+
         if (student) {
             res.status(STATUS_CODES.STATUS_OK).json({message: 'Student updated!'});
         } else {

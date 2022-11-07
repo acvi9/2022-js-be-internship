@@ -34,10 +34,10 @@ const createProfessor = async (req, res) => {
     try {
 
         const tempProfessor = {
-            name: req.query.name,
-            surname: req.query.surname,
-            email: req.query.email,
-            password: req.query.password,
+            name: req.body.name,
+            surname: req.body.surname,
+            email: req.body.email,
+            password: req.body.password,
         }
 
         const professor = await Professor.create(tempProfessor);
@@ -69,10 +69,10 @@ const updateProfessor = async (req, res) => {
     try {
         let ID = req.params.id;
         const professor = await Professor.update({
-            name: req.query.name,
-            surname: req.query.surname,
-            email: req.query.email,
-            password: req.query.password,
+            name: req.body.name,
+            surname: req.body.surname,
+            email: req.body.email,
+            password: req.body.password,
         }, {
             where: {id: ID},
         });
