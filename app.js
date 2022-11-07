@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const ProfessorRoute = require('./routes/professorRoutes');
 const StudentRoute = require('./routes/studentRoutes.js');
@@ -8,14 +9,15 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.json())
 
 app.get('/', (req, res) => {
-	res.send("Hello world!");
+  res.send('Hello world!');
 });
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.use('/students', StudentRoute)
 app.use('/professors', ProfessorRoute);
 app.use('/terms', TermsRoute);
 app.use('/courses', CourseRoute);
-
 
 module.exports = app

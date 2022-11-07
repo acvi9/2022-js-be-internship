@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const request = require('supertest');
 const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
