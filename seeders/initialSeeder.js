@@ -1,4 +1,3 @@
-const { Sequelize, DataTypes} = require('sequelize');
 const database = require('../config/db-config');
 const Professor = require("../models/professorModel");
 const Course = require("../models/courseModel");

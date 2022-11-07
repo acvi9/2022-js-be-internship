@@ -1,7 +1,7 @@
+/* eslint-disable no-undef */
 const request = require('supertest');
 const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
-const Professor = require('../../models/professorModel');
 const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
 
 // Mocking the database and the model
