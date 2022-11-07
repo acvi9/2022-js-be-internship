@@ -20,6 +20,7 @@ mockedSequelize.models.Student.$queryInterface.$useHandler(function (query, quer
   if (query === 'findAll') {
     return Promise.resolve(mockedStudentsData);
   }
+
 })
 
 module.exports = mockStudent;

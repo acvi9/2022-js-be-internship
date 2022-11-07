@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
+const Professor = require('../../models/professorModel');
 const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
 
 // Mocking the database and the model
@@ -73,27 +74,16 @@ describe('Professor Controller', () => {
     describe('DELETE - Delete a professor', () => {
         test('Should delete a professor with ID = 3', async () => {
 
-            let lenBefore = mockedProfessorsData.length;
-
             const res = await request(server)
-            .delete('/professors/11');
-
-            mockedProfessorsData.pop();
-
-            let lenAfter = mockedProfessorsData.length;
+            .delete('/professors/3');
 
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(res.body).toMatchObject({"message":"Professor deleted!"})
-            expect(lenAfter).toBe(lenBefore -1);
-            //todo: check if the professor is deleted in mockedProfessorsData
-
+            expect(res.body).toMatchObject({"message":"Professor deleted!"});
         })
     })
 
     describe('PUT - Update a professor', () => {
         test('Should update a professor with ID = 3', async () => {
-
-            let mockLength = mockedProfessorsData.length;
 
             let updatedProf = {
                 "id": 3,
@@ -111,7 +101,6 @@ describe('Professor Controller', () => {
 
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
             expect(res.body).toMatchObject({"message":"Professor updated!"})
-            expect(mockLength).toBe(10);
         })
     })
 

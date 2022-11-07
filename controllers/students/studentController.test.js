@@ -73,27 +73,16 @@ describe('Student Controller', () => {
     describe('DELETE - Delete a student', () => {
         test('Should delete a student with ID = 3', async () => {
 
-            let lenBefore = mockedStudentsData.length;
-
             const res = await request(server)
             .delete('/students/11');
 
-            mockedStudentsData.pop();
-
-            let lenAfter = mockedStudentsData.length;
-
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(res.body).toMatchObject({"message":"Student deleted!"})
-            expect(lenAfter).toBe(lenBefore -1);
-            //todo: check if the student is deleted in mockedStudentsData
-
+            expect(res.body).toMatchObject({"message":"Student deleted!"});
         })
     })
 
     describe('PUT - Update a student', () => {
         test('Should update a student with ID = 3', async () => {
-
-            let mockLength = mockedStudentsData.length;
 
             let updatedStudent = {
                 "id": 3,
@@ -110,8 +99,7 @@ describe('Student Controller', () => {
             });
 
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(res.body).toMatchObject({"message":"Student updated!"})
-            expect(mockLength).toBe(10);
+            expect(res.body).toMatchObject({"message":"Student updated!"});
         })
     })
 
