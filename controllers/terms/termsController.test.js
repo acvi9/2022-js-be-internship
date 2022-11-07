@@ -41,4 +41,64 @@ describe('Terms Controller', () => {
     })
   });
 
+  describe('POST - Create a new term', () => {
+    test('Should create a new term', async () => {
+
+      let lastID = mockedTermsData[mockedTermsData.length - 1].id;
+
+      let newTerm = {
+        'id': lastID + 1,
+        'name': 'oktobarski',
+        'from': '2022-10-13T14:30:59.000Z',
+        'to': '2022-10-23T14:30:59.000Z'
+      }
+
+      mockedTermsData.push(newTerm);
+
+      const res = await request(server)
+        .post('/terms')
+        .send(newTerm);
+
+      let lastItem = mockedTermsData[mockedTermsData.length - 1];
+
+      expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(lastItem.name).toBe(newTerm.name);
+      expect(lastItem.from).toBe(newTerm.from);
+      expect(lastItem.to).toBe(newTerm.to);
+            
+    })
+  });
+
+  describe('DELETE - Delete a term', () => {
+    test('Should delete a term with ID = 1', async () => {
+
+      const res = await request(server)
+        .delete('/terms/1');
+
+      expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(res.body).toMatchObject({'message':'Term deleted!'});
+    })
+  })
+
+  describe('PUT - Update a term', () => {
+    test('Should update a term with ID = 1', async () => {
+
+      let updateTerm = {
+        'id': 1,
+        'name': 'oktobarski2',
+        'from': '2022-10-24T14:30:59.000Z',
+        'to': '2022-10-27T14:30:59.000Z'
+      }
+
+      const res = await request(server)
+        .put(`/terms/${updateTerm.id}`)
+        .send({
+          'message': 'term updated!',
+        });
+
+      expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(res.body).toMatchObject({'message':'Term updated!'})
+    })
+  });
+
 });
