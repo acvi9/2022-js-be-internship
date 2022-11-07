@@ -18,5 +18,4 @@ app.use('/professors', ProfessorRoute);
 app.use('/terms', TermsRoute);
 app.use('/courses', CourseRoute);
 
-
 module.exports = app
