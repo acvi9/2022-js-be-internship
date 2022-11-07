@@ -1,28 +1,55 @@
 const request = require('supertest');
-const {courseMock} = require('./courseMock');
 const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
-require('dotenv').config();
-const host = process.env.DB_HOST
-const server = app.listen(5010, host,()=>{
+const mockedCoursesData = require('../../models/__mocks__/mockedCoursesData.json');
 
+jest.mock('../../config/db-config');
+jest.mock('../../models/courseModel');
+
+
+let server 
+beforeEach(async () => {
+    server = app.listen(3001);
 })
+afterEach(async () => {
+    await server.close();
+})
+describe('Courses Controller', () => {
 
-describe('Course Controller', () => {
+    describe('GET - List All courses', () => {
+        test('Should return all courses', async () => {
+            const response = await request(server)
+            .get('/courses');
 
-    test('Should test if the connection to the route is successful', async () => {
-        await request(server)
-        .get('/courses')
-        .then(data =>{
-            expect(data.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(response.body).toMatchObject({"courses":mockedCoursesData});
         })
     });
 
-    test('Should return all courses', async () => {
-        await request(server)
-        .get('/courses')
-        .then(data =>{
-            expect(data.body).toEqual(courseMock.listAll)
+    describe('GET - Find By ID', () => {
+        test('Should return a course by ID', async () => {
+            const res = await request(server)
+            .get('/courses/1');
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(res.body).toMatchObject({"course":mockedCoursesData[0]})
         })
     });
+
+    describe('POST - Create course', () => {
+        test('Should return a course by ID', async () => {
+            const newCourse = {
+                "name": "SE 2",
+                "description": "Software Engineering intermidiate concepts",
+                "espb": 10,
+                "professorId": 1
+            }
+            const res = await request(server)
+            .post('/courses').send(newCourse);
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            expect(res.body).toMatchObject({"course":mockedCoursesData[0]})
+        })
+    });
+
 });
