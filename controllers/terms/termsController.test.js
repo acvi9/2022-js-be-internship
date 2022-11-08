@@ -9,21 +9,21 @@ jest.mock('../../config/db-config');
 jest.mock('../../models/termsModel.js');
 
 // Initializing the server variable
-let server;
+// let server;
 
-beforeEach(async () => {
-  server = app.listen(3000);
-}); // Starts server before each test
+// beforeEach(async () => {
+// server = app.listen(3000);
+// }); // Starts server before each test
 
-afterEach(async () => {
-  await server.close();
-}); // Closes server after each test
+// afterEach(async () => {
+// await server.close();
+// }); // Closes server after each test
 
 describe('Terms Controller', () => {
 
   describe('GET - List All terms', () => {
     test('Should return all tests', async () => {
-      const response = await request(server)
+      const response = await request(app)
         .get('/terms');
 
       expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -33,7 +33,7 @@ describe('Terms Controller', () => {
 
   describe('GET - Find By ID', () => {
     test('Should return a term with ID = 1', async () => {
-      const res = await request(server)
+      const res = await request(app)
         .get('/terms/1');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -55,7 +55,7 @@ describe('Terms Controller', () => {
 
       mockedTermsData.push(newTerm);
 
-      const res = await request(server)
+      const res = await request(app)
         .post('/terms')
         .send(newTerm);
 
@@ -72,7 +72,7 @@ describe('Terms Controller', () => {
   describe('DELETE - Delete a term', () => {
     test('Should delete a term with ID = 1', async () => {
 
-      const res = await request(server)
+      const res = await request(app)
         .delete('/terms/1');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -90,7 +90,7 @@ describe('Terms Controller', () => {
         'to': '2022-10-27T14:30:59.000Z'
       }
 
-      const res = await request(server)
+      const res = await request(app)
         .put(`/terms/${updateTerm.id}`)
         .send({
           'message': 'term updated!',
