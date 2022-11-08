@@ -4,9 +4,9 @@ const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
 const mockedCoursesData = require('../../models/__mocks__/mockedCoursesData.json');
 
+
 jest.mock('../../config/db-config');
 jest.mock('../../models/courseModel');
-
 
 describe('Courses Controller', () => {
 

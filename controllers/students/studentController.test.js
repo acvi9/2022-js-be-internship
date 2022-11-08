@@ -9,21 +9,21 @@ jest.mock('../../config/db-config');
 jest.mock('../../models/studentModel');
 
 // Initializing the server variable
-let server;
+// let server;
 
-beforeEach(async () => {
-  server = app.listen(3000);
-}); // Starts server before each test
+// beforeEach(async () => {
+// server = app.listen(3000);
+// }); // Starts server before each test
 
-afterEach(async () => {
-  await server.close();
-}); // Closes server after each test
+// afterEach(async () => {
+// await server.close();
+// }); // Closes server after each test
 
 describe('Student Controller', () => {
 
   describe('GET - List All students', () => {
     test('Should return all students', async () => {
-      const response = await request(server)
+      const response = await request(app)
         .get('/students');
 
       expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -33,7 +33,7 @@ describe('Student Controller', () => {
 
   describe('GET - Find By ID', () => {
     test('Should return a student with ID = 3', async () => {
-      const res = await request(server)
+      const res = await request(app)
         .get('/students/3');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -56,7 +56,7 @@ describe('Student Controller', () => {
 
       mockedStudentsData.push(newStudent);
 
-      const res = await request(server)
+      const res = await request(app)
         .post('/students')
         .send(newStudent);
 
@@ -74,7 +74,7 @@ describe('Student Controller', () => {
   describe('DELETE - Delete a student', () => {
     test('Should delete a student with ID = 3', async () => {
 
-      const res = await request(server)
+      const res = await request(app)
         .delete('/students/11');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -93,7 +93,7 @@ describe('Student Controller', () => {
         'password': '123456'
       }
 
-      const res = await request(server)
+      const res = await request(app)
         .put(`/students/${updatedStudent.id}`)
         .send({
           'message': 'Student updated!',
