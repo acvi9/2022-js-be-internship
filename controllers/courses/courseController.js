@@ -10,93 +10,87 @@ const listAllCourses = async (req, res) => {
   }
 }
 
-const findCourseById = async (req, res) => {
-    try {
-        const course = await Course.findOne({
-            where: {
-                id: req.params.courseId
-            }
-        });
-        if(course)
-            res.status(STATUS_CODES.STATUS_OK).json(course);
-        else
-            res.sendStatus(STATUS_CODES.NOT_FOUND);
-    } catch (error) {
-        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
-    }
+const findByID = async (req, res) => {
+  try {
+
+    let ID = req.params.id;
+
+    const course = await Course.findOne({
+      where: {id: ID}
+    });
+
+    if(course){
+      res.status(STATUS_CODES.STATUS_OK).json({course});
+    }else
+      res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 }
 
 const createCourse = async (req, res) => {
-    try {
-        const {name, description, espb, professorId} = req.body; 
-        const course = await Course.create({name, description, espb, professorId});
-        res.status(STATUS_CODES.STATUS_OK).json(course);
-    } catch (error) {
-        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+
+  try {
+
+    const tempCourse = {
+      name: req.body.name,
+      description: req.body.description,
+      espb: req.body.espb,
+      professorId: req.body.professorId,
     }
+    
+    const course = await Course.create(tempCourse);
+    res.status(STATUS_CODES.STATUS_OK).json(course);
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 }
 
 const deleteCourse = async (req, res) => {
-    try {
-        const course = await Course.destroy({
-            where: {
-                id: req.params.courseId
-            }
-        });
-        if(course)
-            res.sendStatus(STATUS_CODES.STATUS_OK);
-        else
-            res.sendStatus(STATUS_CODES.NOT_FOUND);
-    } catch (error) {
-        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+
+  try {
+    let ID = req.params.id;
+    const course = await Course.destroy({
+      where: {id: ID},
+    });
+    if (course) {
+      res.status(STATUS_CODES.STATUS_OK).json({message: 'Course deleted!'});
+    } else {
+      res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
     }
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 }
 
-// const updateCourse = async (req, res) => {
-//     try {
-//         const course = await Course.findOne({
-//             where: {
-//                 id: req.params.courseId
-//             }
-//         });
-//         if(course)
-//         {
-//             const {name, description, espb, professorId} = req.body;
-//             const updatedCourse = await course.update({name, description, espb, professorId});
-//             res.status(STATUS_CODES.STATUS_OK).json(updatedCourse);
-//             console.log(updatedCourse);
-//         }
-//         else
-//             res.sendStatus(STATUS_CODES.NOT_FOUND);
-//     } catch (error) {
-//         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
-//     }
-// }
-
 const updateCourse = async (req, res) => {
-    try {
-        const {name, description, espb, professorId} = req.body;
-        const course = await Course.update(
-            {name, description, espb, professorId},
-            {
-                where: {id: req.params.courseId}
-            }
-        );
-        if(course)
-        {
-            res.sendStatus(STATUS_CODES.STATUS_OK);
-        }
-        else
-            res.sendStatus(STATUS_CODES.NOT_FOUND);
-    } catch (error) {
-        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+
+  try {
+
+    let ID = req.params.id;
+    
+    const course = await Course.update({
+      name: req.body.name,
+      description: req.body.description,
+      espb: req.body.espb,
+      professorId: req.body.professorId,
+    }, {
+      where: {id: ID},
+    });
+    if (course) {
+      res.status(STATUS_CODES.STATUS_OK).json({message: 'Course updated!'});
+    } else {
+      res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
     }
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 }
 
 module.exports = {
-    listAllCourses,
-    createCourse,
-    deleteCourse,
-    updateCourse,
-    findCourseById
+  listAllCourses,
+  findByID,
+  createCourse,
+  deleteCourse,
+  updateCourse
 }

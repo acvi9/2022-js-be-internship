@@ -8,81 +8,89 @@ jest.mock('../../config/db-config');
 jest.mock('../../models/courseModel');
 
 
-let server 
-beforeEach(async () => {
-    server = app.listen(3001);
-})
-afterEach(async () => {
-    await server.close();
-})
 describe('Courses Controller', () => {
 
-    describe('GET - List All courses', () => {
-        test('Should return all courses', async () => {
-            const response = await request(server)
-            .get('/courses');
+  describe('GET - List All courses', () => {
+    test('Should return all courses', async () => {
+      const response = await request(app)
+        .get('/courses');
+    
+      expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(response.body).toMatchObject({'courses':mockedCoursesData});
+    })
+  });
 
-            expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(response.body).toMatchObject({"courses":mockedCoursesData});
-        })
-    });
+  describe('GET - Find By ID', () => {
+    test('Should return a course with ID = 1', async () => {
+      const res = await request(app)
+        .get('/courses/1');
 
-    describe('GET - Find By ID', () => {
-        test('Should return a course by ID', async () => {
-            const res = await request(server)
-            .get('/courses/1');
+      expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(res.body).toMatchObject({'course':mockedCoursesData[0]});
+    })
+  });
 
-            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(res.body).toMatchObject(mockedCoursesData[0])
-        })
-    });
+  describe('POST - Create a new course', () => {
+    test('Should create a new course', async () => {
 
-    describe('POST - Create course', () => {
-        test('Should return created Course', async () => {
-            const newCourse = {
-                name: "SE 2",
-                description: "Software Engineering intermidiate concepts",
-                espb: 10,
-                professorId: 1
-            }
-            const res = await request(server)
-            .post('/courses').send(newCourse);
+      let lastID = mockedCoursesData[mockedCoursesData.length - 1].id;
 
-            //console.log(res.body)
-            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            // expect(res.body.name).toMatchObject(newCourse.name);
-            expect(res.body.espb).toBe(newCourse.espb);
-            expect(res.body.name).toBe(newCourse.name);
-        })
-    });
+      let newCourse = {
+        'id': lastID + 1,
+        'name': 'Applied Calculus',
+        'description': 'AP math course.',
+        'espb': 10,
+        'professorId': 1
+      }
 
-    describe('DELETE - Delete By ID', () => {
-        test('Should delete a course by ID', async () => {
-            const res = await request(server)
-            .delete('/courses/3');
+      mockedCoursesData.push(newCourse);
 
-            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            //expect(res.body).toMatchObject(mockedCoursesData[0])
-        })
-    });
+      const res = await request(app)
+        .post('/courses')
+        .send(newCourse);
 
-    describe('PUT - Update course by Id', () => {
-        test('Should return updated Course', async () => {
-            const updatedCourse = {
-                name: "Maths 2",
-                description: "We all know what maths is, again",
-                espb: 10,
-                professorId: 1
-            }
-            const res = await request(server)
-            .put('/courses/1').send(updatedCourse);
+      let lastItem = mockedCoursesData[mockedCoursesData.length - 1];
 
-            console.log(res.body)
-            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            // expect(res.body.name).toMatchObject(newCourse.name);
-            //expect(res.body.espb).toBe(updatedCourse.espb);
-            //expect(res.body.name).toBe(updatedCourse.name);
-        })
-    });
+      expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(lastItem.name).toBe(newCourse.name);
+      expect(lastItem.description).toBe(newCourse.description);
+      expect(lastItem.espb).toBe(newCourse.espb);
+      expect(lastItem.professorId).toBe(newCourse.professorId);
+            
+    })
+  });
+
+  describe('DELETE - Delete a course', () => {
+    test('Should delete a course with ID = 3', async () => {
+
+      const res = await request(app)
+        .delete('/courses/3');
+
+      expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(res.body).toMatchObject({'message':'Course deleted!'});
+    })
+  })
+
+  describe('PUT - Update a course', () => {
+    test('Should update a course with ID = 3', async () => {
+
+      let updatedCourse = {
+        'id': 3,
+        'name': 'Software Testing',
+        'description': 'Application testing for Software Engineering.',
+        'espb': 8,
+        'professorId': 1
+      }
+
+      const res = await request(app)
+        .put(`/courses/${updatedCourse.id}`)
+        .send({
+          'message': 'Course updated!',
+        });
+
+      expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(res.body).toMatchObject({'message':'Course updated!'})
+    })
+  })
 
 });
