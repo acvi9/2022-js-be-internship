@@ -18,8 +18,5 @@ mockedSequelize.models.Course.$queryInterface.$useHandler(function(query, queryO
   if (query === 'findAll') {
     return Promise.resolve(mockedCoursesData);
   }
-  if (query === 'create') {
-    return Promise.resolve(mockedCoursesData);
-  }
 })
 module.exports = mockCourse;

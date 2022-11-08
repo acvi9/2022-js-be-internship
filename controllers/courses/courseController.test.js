@@ -33,23 +33,55 @@ describe('Courses Controller', () => {
             .get('/courses/1');
 
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(res.body).toMatchObject({"course":mockedCoursesData[0]})
+            expect(res.body).toMatchObject(mockedCoursesData[0])
         })
     });
 
     describe('POST - Create course', () => {
-        test('Should return a course by ID', async () => {
+        test('Should return created Course', async () => {
             const newCourse = {
-                "name": "SE 2",
-                "description": "Software Engineering intermidiate concepts",
-                "espb": 10,
-                "professorId": 1
+                name: "SE 2",
+                description: "Software Engineering intermidiate concepts",
+                espb: 10,
+                professorId: 1
             }
             const res = await request(server)
             .post('/courses').send(newCourse);
 
+            //console.log(res.body)
             expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-            expect(res.body).toMatchObject({"course":mockedCoursesData[0]})
+            // expect(res.body.name).toMatchObject(newCourse.name);
+            expect(res.body.espb).toBe(newCourse.espb);
+            expect(res.body.name).toBe(newCourse.name);
+        })
+    });
+
+    describe('DELETE - Delete By ID', () => {
+        test('Should delete a course by ID', async () => {
+            const res = await request(server)
+            .delete('/courses/3');
+
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            //expect(res.body).toMatchObject(mockedCoursesData[0])
+        })
+    });
+
+    describe('PUT - Update course by Id', () => {
+        test('Should return updated Course', async () => {
+            const updatedCourse = {
+                name: "Maths 2",
+                description: "We all know what maths is, again",
+                espb: 10,
+                professorId: 1
+            }
+            const res = await request(server)
+            .put('/courses/1').send(updatedCourse);
+
+            console.log(res.body)
+            expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
+            // expect(res.body.name).toMatchObject(newCourse.name);
+            //expect(res.body.espb).toBe(updatedCourse.espb);
+            //expect(res.body.name).toBe(updatedCourse.name);
         })
     });
 

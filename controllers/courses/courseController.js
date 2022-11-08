@@ -17,7 +17,10 @@ const findCourseById = async (req, res) => {
                 id: req.params.courseId
             }
         });
-        res.status(STATUS_CODES.STATUS_OK).json({course});
+        if(course)
+            res.status(STATUS_CODES.STATUS_OK).json(course);
+        else
+            res.sendStatus(STATUS_CODES.NOT_FOUND);
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
     }
@@ -25,7 +28,8 @@ const findCourseById = async (req, res) => {
 
 const createCourse = async (req, res) => {
     try {
-        const course = await Course.create(req.body);
+        const {name, description, espb, professorId} = req.body; 
+        const course = await Course.create({name, description, espb, professorId});
         res.status(STATUS_CODES.STATUS_OK).json(course);
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
@@ -34,26 +38,56 @@ const createCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
     try {
-        const courses = await Course.destroy({
+        const course = await Course.destroy({
             where: {
                 id: req.params.courseId
             }
         });
-        res.sendStatus(STATUS_CODES.STATUS_OK);
+        if(course)
+            res.sendStatus(STATUS_CODES.STATUS_OK);
+        else
+            res.sendStatus(STATUS_CODES.NOT_FOUND);
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
     }
 }
 
+// const updateCourse = async (req, res) => {
+//     try {
+//         const course = await Course.findOne({
+//             where: {
+//                 id: req.params.courseId
+//             }
+//         });
+//         if(course)
+//         {
+//             const {name, description, espb, professorId} = req.body;
+//             const updatedCourse = await course.update({name, description, espb, professorId});
+//             res.status(STATUS_CODES.STATUS_OK).json(updatedCourse);
+//             console.log(updatedCourse);
+//         }
+//         else
+//             res.sendStatus(STATUS_CODES.NOT_FOUND);
+//     } catch (error) {
+//         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+//     }
+// }
+
 const updateCourse = async (req, res) => {
     try {
-        const course = await Course.findOne({
-            where: {
-                id: req.params.courseId
+        const {name, description, espb, professorId} = req.body;
+        const course = await Course.update(
+            {name, description, espb, professorId},
+            {
+                where: {id: req.params.courseId}
             }
-        });
-        course.update(req.body);
-        res.status(STATUS_CODES.STATUS_OK).json({course});
+        );
+        if(course)
+        {
+            res.sendStatus(STATUS_CODES.STATUS_OK);
+        }
+        else
+            res.sendStatus(STATUS_CODES.NOT_FOUND);
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
     }
