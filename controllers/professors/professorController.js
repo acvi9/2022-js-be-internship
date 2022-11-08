@@ -2,7 +2,6 @@ const Professor = require('../../models/professorModel');
 const {STATUS_CODES} = require('../../constants');
 
 const listAllProfessors = async (req, res) => {
-  console.log('bbb', res.status(STATUS_CODES.STATUS_OK));
   try {
     const professors = await Professor.findAll({
       attributes: {exclude: ['password']},
@@ -10,7 +9,6 @@ const listAllProfessors = async (req, res) => {
     res.status(STATUS_CODES.STATUS_OK);
     res.json({professors});
   } catch (error) {
-    console.log('cccc', error);
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR);
     res.json(error.message);
   }

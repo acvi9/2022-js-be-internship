@@ -5,6 +5,7 @@ const {STATUS_CODES} = require('../../constants');
 const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
 const { listAllProfessors } = require('./professorController');
 
+
 // Mocking the database and the model
 jest.mock('../../config/db-config');
 jest.mock('../../models/professorModel');
@@ -24,24 +25,18 @@ describe('Professor Controller', () => {
 
   describe('GET - List All professors', () => {
     test('Should return all professors', async () => {
-      let resStatus = '';
-      let responseObject = {};
-      const req = {};
-      const res = {};
-      res.json = jest.fn().mockImplementation((result) => {
-        responseObject = result;
-        return res;
-      });
-      res.status = jest.fn().mockImplementation((status) => {
-        console.log('aaaa', status);
-        resStatus = status;
-        return res;
-      });
+      
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockReturnThis(),
+      };
 
-      listAllProfessors(req, res);
+      await listAllProfessors(null, res);
 
-      expect(resStatus).toBe(STATUS_CODES.STATUS_OK);
-      expect(responseObject).toMatchObject({'professors':mockedProfessorsData});
+      expect(res.status).toHaveBeenCalledWith(STATUS_CODES.STATUS_OK);
+      expect(res.json).toHaveBeenCalledWith({professors: mockedProfessorsData});
+      expect(res.status).toHaveBeenCalledTimes(1);
+      expect(res.json).toHaveBeenCalledTimes(1);
     })
   });
 

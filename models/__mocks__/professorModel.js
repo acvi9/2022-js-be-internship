@@ -8,9 +8,9 @@ const mockProfessor = mockedSequelize.define('Professor', {
   surname: 'profTestic',
   password: '123'
 },
-  {
-    timestamps: false
-  });
+{
+  timestamps: false
+});
 
 mockedSequelize.models.Professor.$queryInterface.$useHandler(function (query, queryOptions, done) {
   if (query === 'findOne') {
