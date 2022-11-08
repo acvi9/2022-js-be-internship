@@ -11,16 +11,16 @@ jest.mock('../../models/termsModel.js');
 // Initializing the server variable
 let server;
 
-beforeEach(async () => {
-  server = app.listen(3000);
-}); // Starts server before each test
-
-afterEach(async () => {
-  await server.close();
-}); // Closes server after each test
 
 describe('Terms Controller', () => {
-
+  beforeAll(async () => {
+    server = app.listen(3000);
+  }); // Starts server before each test
+  
+  afterAll(async () => {
+    await server.close();
+  }); // Closes server after each test
+  
   describe('GET - List All terms', () => {
     test('Should return all tests', async () => {
       const response = await request(server)
