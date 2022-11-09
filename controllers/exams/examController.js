@@ -14,11 +14,11 @@ const findByID = async (req, res) => {
   try {
     let ID = req.params.id;
   
-    const exams = await Exam.findOne({
+    const exam = await Exam.findOne({
       where: {id: ID}
     });
-    if (exams) {
-      res.status(STATUS_CODES.STATUS_OK).json({exams});
+    if (exam) {
+      res.status(STATUS_CODES.STATUS_OK).json({exam});
     } else {
       res.status(STATUS_CODES.NOT_FOUND).json({message: 'Exam not found'});
     }
