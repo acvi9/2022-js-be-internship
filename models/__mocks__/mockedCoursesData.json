@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "Maths",
+        "description": "We all know what maths is.",
+        "espb": 8,
+        "professorId": 2
+    },
+    {
+        "id": 2,
+        "name": "SE",
+        "description": "Software Engineering basics",
+        "espb": 8,
+        "professorId": 1
+    },
+    {
+        "id": 3,
+        "name": "Maths 2",
+        "description": "We all know what maths is, again.",
+        "espb": 8,
+        "professorId": 2
+    }
+]
