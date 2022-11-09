@@ -13,19 +13,19 @@ jest.mock('../../models/professorModel');
 // Initializing the server variable
 // let server;
 
-beforeEach(async () => {
-  server = app.listen(3000);
-}); // Starts server before each test
+// beforeEach(async () => {
+// server = app.listen(3000);
+// }); // Starts server before each test
 
-afterEach(async () => {
-  await server.close();
-}); // Closes server after each test
+// afterEach(async () => {
+// await server.close();
+// }); // Closes server after each test
 
 describe('Professor Controller', () => {
 
   describe('GET - List All professors', () => {
     test('Should return all professors', async () => {
-      const response = await request(server)
+      const response = await request(app)
         .get('/professors');
 
       expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -35,7 +35,7 @@ describe('Professor Controller', () => {
 
   describe('GET - Find By ID', () => {
     test('Should return a professor with ID = 3', async () => {
-      const res = await request(server)
+      const res = await request(app)
         .get('/professors/3');
 
   //     expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -58,7 +58,7 @@ describe('Professor Controller', () => {
 
   //     mockedProfessorsData.push(newProf);
 
-      const res = await request(server)
+      const res = await request(app)
         .post('/professors')
         .send(newProf);
 
@@ -76,7 +76,7 @@ describe('Professor Controller', () => {
   // describe('DELETE - Delete a professor', () => {
   //   test('Should delete a professor with ID = 3', async () => {
 
-      const res = await request(server)
+      const res = await request(app)
         .delete('/professors/3');
 
   //     expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
@@ -95,7 +95,7 @@ describe('Professor Controller', () => {
   //       'password': '123456'
   //     }
 
-      const res = await request(server)
+      const res = await request(app)
         .put(`/professors/${updatedProf.id}`)
         .send({
           'message': 'Professor updated!',

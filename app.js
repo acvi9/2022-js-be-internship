@@ -5,9 +5,9 @@ const ProfessorRoute = require('./routes/professorRoutes');
 const StudentRoute = require('./routes/studentRoutes.js');
 const TermsRoute = require('./routes/termsRoutes');
 const CourseRoute = require('./routes/courseRoutes');
-const LoginRoute = require('./routes/loginRoutes')
 app.use(express.urlencoded({extended:false}));
 app.use(express.json())
+const LoginRoute = require('./routes/loginRoutes')
 
 app.get('/', (req, res) => {
   res.send('Hello world!');

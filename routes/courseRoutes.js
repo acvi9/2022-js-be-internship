@@ -47,7 +47,7 @@ module.exports = router;
 
 /**
  * @openapi
- * /courses/{courseId}:
+ * /courses/{id}:
  *   get:
  *     summary: Get specific course.
  *     tags: [Course Routes]
@@ -85,11 +85,19 @@ module.exports = router;
  *     summary: Create a new course.
  *     tags: [Course Routes]
  *     requestBody:
- *       description: Create a course
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Course'
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               espb:
+ *                 type: string
+ *               professorId:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Course created.
@@ -111,12 +119,12 @@ module.exports = router;
 
 /**
  * @openapi
- * /courses/{courseId}:
+ * /courses/{id}:
  *   put:
  *     summary: Update existing course.
  *     tags: [Course Routes]
  *     parameters:
- *       - name: courseId
+ *       - name: id
  *         in: path
  *         description: ID of course to return
  *         required: true
@@ -124,11 +132,19 @@ module.exports = router;
  *           type: integer
  *           format: int64 
  *     requestBody:
- *       description: New data for course
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Course'
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               espb:
+ *                 type: string
+ *               professorId:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Course updated.
@@ -150,18 +166,17 @@ module.exports = router;
 
 /**
  * @openapi
- * /courses/{courseId}:
+ * /courses/{id}:
  *   delete:
  *     summary: Delete existing course.
  *     tags: [Course Routes]
  *     parameters:
- *       - name: courseId
+ *       - name: id
  *         in: path
  *         description: ID of course to return
  *         required: true
  *         schema:
  *           type: integer
- *           format: int64 
  *     responses:
  *       200:
  *         description: Course deleted.
