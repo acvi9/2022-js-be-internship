@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { listAllExams, findByID } = require('../controllers/exams/examController');
+const { listAllExams, findByID, createExam, updateExam, deleteExam} = require('../controllers/exams/examController');
 
 router.get('/', listAllExams);
 router.get('/:id', findByID);
-
+router.post('/', createExam);
+router.put('/:id', updateExam);
+router.delete('/:id', deleteExam);
 
 module.exports = router;
 
@@ -91,14 +93,18 @@ module.exports = router;
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               date_time:
  *                 type: string
- *               description:
- *                 type: string
- *               espb:
- *                 type: string
+ *               status:
+ *                 type: number
+ *               points:
+ *                 type: number
  *               professorId:
- *                 type: string
+ *                 type: number
+ *               courseId:
+ *                 type: number
+ *               termId:
+ *                 type: number
  *     responses:
  *       200:
  *         description: Exam created.
@@ -110,10 +116,12 @@ module.exports = router;
  *                 $ref: '#/components/schemas/Exam'
  *               example:
  *                 id: 1
- *                 name: Software Engineering
- *                 description: Software Engineering basics
- *                 espb: 7
+ *                 date_time: 2022-01-17T04:33:12.000Z
+ *                 status: false
+ *                 points: 7
  *                 professorId: 1
+ *                 courseId: 1
+ *                 termId: 1
  *       500:
  *         description: Server error
  */
@@ -138,14 +146,18 @@ module.exports = router;
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               date_time:
  *                 type: string
- *               description:
- *                 type: string
- *               espb:
- *                 type: string
+ *               status:
+ *                 type: number
+ *               points:
+ *                 type: number
  *               professorId:
- *                 type: string
+ *                 type: number
+ *               courseId:
+ *                 type: number
+ *               termId:
+ *                 type: number
  *     responses:
  *       200:
  *         description: Exam updated.
@@ -157,10 +169,12 @@ module.exports = router;
  *                 $ref: '#/components/schemas/Exam'
  *               example:
  *                 id: 1
- *                 name: Software Engineering
- *                 description: Software Engineering basics
- *                 espb: 7
+ *                 date_time: 2022-01-17T04:33:12.000Z
+ *                 status: false
+ *                 points: 7
  *                 professorId: 1
+ *                 courseId: 1
+ *                 termId: 1
  *       500:
  *         description: Server error
  */
