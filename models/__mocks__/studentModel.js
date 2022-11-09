@@ -8,9 +8,9 @@ const mockStudent = mockedSequelize.define('Student', {
   surname: 'jest',
   password: '123'
 },
-  {
-    timestamps: false
-  }
+{
+  timestamps: false
+}
 );
 
 mockedSequelize.models.Student.$queryInterface.$useHandler(function (query, queryOptions, done) {
