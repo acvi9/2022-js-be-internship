@@ -4,7 +4,7 @@ const database = require('../config/db-config');
 const Exam = database.define('exam', {
   date_time: {
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: false,
   },
   status: {
     type: DataTypes.BOOLEAN,
@@ -14,7 +14,20 @@ const Exam = database.define('exam', {
   points: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  professorId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  courseId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  termId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
+
 },
 {
   timestamps: false
