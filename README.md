@@ -4,7 +4,9 @@
 
 ## **Project Features**
 
-There are two types of users, those being **students** and **professors**. Depending on the type of user, the system will provide different functionalities. 
+There are two types of users, those being **students** and **professors**. Depending on the type of user, the system will provide different functionalities. Students and professors will certain naming standards when it comes to their email adresses:
+- Professors email usernames will be made from their names and surnames, separated by the dot, and followed by unique number (all lowercase). Example -> john.johnson123@email.com
+- Professors email usernames will be made from their names, surnames, word "student", all separated by the doot, and followed by unique number (all lowercase). Example -> john.johnson.student123@email.com
 
 ### **All users will have the ability to:**
 - log in
