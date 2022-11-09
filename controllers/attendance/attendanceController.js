@@ -1,4 +1,6 @@
 const Attendance = require('../../models/attendanceModel');
+const Student = require('../../models/studentModel');
+const Course = require('../../models/courseModel');
 const {STATUS_CODES} = require('../../constants');
 
 const createAttendance = async (req, res) => {
@@ -33,11 +35,23 @@ const deleteAttendance = async (req, res) => {
 const listStudentsOnCourse = async (req, res) => {
   try {
     let ID = req.params.id;
+
     let students = await Attendance.findAll({
       where: {courseId: ID, }
     });
 
-    res.status(STATUS_CODES.STATUS_OK).json({students});
+    let studentNames = [];
+
+    for (let i = 0; i < students.length; i++) {
+
+      let studentName = await Student.findOne({
+        where: {id: students[i].studentId, }
+      });
+
+      studentNames.push(studentName);
+    }
+
+    res.status(STATUS_CODES.STATUS_OK).json({studentNames});
   } catch (error) {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
   }
@@ -50,7 +64,19 @@ const listCoursesOfStudent = async (req, res) => {
       where: {studentId: ID, }
     });
 
-    res.status(STATUS_CODES.STATUS_OK).json({courses});
+    let courseNames = [];
+
+    for (let i = 0; i < courses.length; i++) {
+
+      let courseName = await Course.findOne({
+        where: {id: courses[i].courseId, }
+      });
+
+      courseNames.push(courseName);
+
+    }
+
+    res.status(STATUS_CODES.STATUS_OK).json({courseNames});
   } catch (error) {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
   }
