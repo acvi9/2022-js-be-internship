@@ -1,5 +1,6 @@
 const Professor = require('../../models/professorModel');
 const {STATUS_CODES} = require('../../constants');
+const bcrypt = require('bcrypt');
 
 const listAllProfessors = async (req, res) => {
   try {
@@ -34,12 +35,12 @@ const findByID = async (req, res) => {
 
 const createProfessor = async (req, res) => {
   try {
-
+    const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
     const tempProfessor = {
       name: req.body.name,
       surname: req.body.surname,
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
     }
 
     const professor = await Professor.create(tempProfessor);
@@ -70,11 +71,12 @@ const deleteProfessor = async (req, res) => {
 const updateProfessor = async (req, res) => {
   try {
     let ID = req.params.id;
+    const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
     const professor = await Professor.update({
       name: req.body.name,
       surname: req.body.surname,
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
     }, {
       where: {id: ID},
     });

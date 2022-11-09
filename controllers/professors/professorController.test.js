@@ -13,37 +13,30 @@ jest.mock('../../models/professorModel');
 // Initializing the server variable
 // let server;
 
+beforeEach(async () => {
+  server = app.listen(3000);
+}); // Starts server before each test
+
+afterEach(async () => {
+  await server.close();
+}); // Closes server after each test
+
 describe('Professor Controller', () => {
-  
-  // beforeAll(async () => {
-  //   server = app.listen(3000);
-  // }); // Starts server before each test
-  
-  // afterAll(async () => {
-  //   await server.close();
-  // }); // Closes server after each test
 
   describe('GET - List All professors', () => {
     test('Should return all professors', async () => {
-      
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnThis(),
-      };
+      const response = await request(server)
+        .get('/professors');
 
-      await listAllProfessors(null, res);
-
-      expect(res.status).toHaveBeenCalledWith(STATUS_CODES.STATUS_OK);
-      expect(res.json).toHaveBeenCalledWith({professors: mockedProfessorsData});
-      expect(res.status).toHaveBeenCalledTimes(1);
-      expect(res.json).toHaveBeenCalledTimes(1);
+      expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
+      expect(response.body).toMatchObject({'professors':mockedProfessorsData});
     })
   });
 
-  // describe('GET - Find By ID', () => {
-  //   test('Should return a professor with ID = 3', async () => {
-  //     const res = await request(server)
-  //       .get('/professors/3');
+  describe('GET - Find By ID', () => {
+    test('Should return a professor with ID = 3', async () => {
+      const res = await request(server)
+        .get('/professors/3');
 
   //     expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
   //     expect(res.body).toMatchObject({'professor':mockedProfessorsData[2]});
@@ -65,9 +58,9 @@ describe('Professor Controller', () => {
 
   //     mockedProfessorsData.push(newProf);
 
-  //     const res = await request(server)
-  //       .post('/professors')
-  //       .send(newProf);
+      const res = await request(server)
+        .post('/professors')
+        .send(newProf);
 
   //     let lastItem = mockedProfessorsData[mockedProfessorsData.length - 1];
 
@@ -83,8 +76,8 @@ describe('Professor Controller', () => {
   // describe('DELETE - Delete a professor', () => {
   //   test('Should delete a professor with ID = 3', async () => {
 
-  //     const res = await request(server)
-  //       .delete('/professors/3');
+      const res = await request(server)
+        .delete('/professors/3');
 
   //     expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
   //     expect(res.body).toMatchObject({'message':'Professor deleted!'});
@@ -102,11 +95,11 @@ describe('Professor Controller', () => {
   //       'password': '123456'
   //     }
 
-  //     const res = await request(server)
-  //       .put(`/professors/${updatedProf.id}`)
-  //       .send({
-  //         'message': 'Professor updated!',
-  //       });
+      const res = await request(server)
+        .put(`/professors/${updatedProf.id}`)
+        .send({
+          'message': 'Professor updated!',
+        });
 
   //     expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
   //     expect(res.body).toMatchObject({'message':'Professor updated!'})
