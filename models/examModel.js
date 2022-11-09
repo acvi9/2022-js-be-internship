@@ -14,7 +14,20 @@ const Exam = database.define('exam', {
   points: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  professorId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  courseId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  termId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
+
 },
 {
   timestamps: false

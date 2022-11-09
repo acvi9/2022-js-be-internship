@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { listAllExams: listAllExams, createExam, deleteExam, updateExam, findByID } = require('../controllers/exams/examController');
+const { listAllExams, findByID } = require('../controllers/exams/examController');
 
 router.get('/', listAllExams);
 router.get('/:id', findByID);
-router.post('/', createExam);
-router.put('/:id', updateExam);
-router.delete('/:id', deleteExam);
 
 
 module.exports = router;
@@ -37,10 +34,13 @@ module.exports = router;
  *                 $ref: '#/components/schemas/Exam'
  *               example:
  *                 id: 1
- *                 name: Software Engineering
- *                 description: Software Engineering basics
- *                 espb: 7
+ *                 date_time: 2022-01-17T04:33:12.000Z
+ *                 status: false
+ *                 points: 7
  *                 professorId: 1
+ *                 courseId: 1
+ *                 termId: 1
+ * 
  *       500:
  *         description: Server error
  */
@@ -58,7 +58,6 @@ module.exports = router;
  *         required: true
  *         schema:
  *           type: integer
- *           format: int64 
  *     responses:
  *       200:
  *         description: Returned Exam which id eqals to id.
@@ -70,10 +69,12 @@ module.exports = router;
  *                 $ref: '#/components/schemas/Exam'
  *               example:
  *                 id: 1
- *                 name: Software Engineering
- *                 description: Software Engineering basics
- *                 espb: 7
+ *                 date_time: 2022-01-17T04:33:12.000Z
+ *                 status: false
+ *                 points: 7
  *                 professorId: 1
+ *                 courseId: 1
+ *                 termId: 1
  *       500:
  *         description: Server error
  */
