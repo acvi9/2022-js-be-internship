@@ -13,6 +13,10 @@ const Course = database.define('course',{
   espb: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  professorId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 },
 {

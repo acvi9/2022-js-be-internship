@@ -13,6 +13,7 @@ const mockStudent = mockedSequelize.define('Student', {
 }
 );
 
+// eslint-disable-next-line no-unused-vars
 mockedSequelize.models.Student.$queryInterface.$useHandler(function (query, queryOptions, done) {
   if (query === 'findOne') {
     return Promise.resolve(mockedStudentsData[2]);
