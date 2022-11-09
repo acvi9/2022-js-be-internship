@@ -1,7 +1,5 @@
 const Attendance = require('../../models/attendanceModel');
 const {STATUS_CODES} = require('../../constants');
-//const Course = require('../courses/courseController');
-const Student = require('../../models/studentModel');
 
 const createAttendance = async (req, res) => {
   try {
@@ -45,8 +43,23 @@ const listStudentsOnCourse = async (req, res) => {
   }
 }
 
+const listCoursesOfStudent = async (req, res) => {
+  try {
+    let ID = req.params.id;
+    let courses = await Attendance.findAll({
+      where: {studentId: ID, }
+    });
+
+    res.status(STATUS_CODES.STATUS_OK).json({courses});
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+}
+
+
 module.exports = {
   createAttendance,
   deleteAttendance,
   listStudentsOnCourse,
+  listCoursesOfStudent
 };
