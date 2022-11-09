@@ -75,7 +75,7 @@ module.exports = router;
  * @openapi
  * /terms:
  *   post:
- *     summary: create a professor.
+ *     summary: Create a term.
  *     tags: [Terms Routes]
  *     requestBody:
  *       content:
@@ -109,7 +109,7 @@ module.exports = router;
  * @openapi
  * /terms/{id}:
  *   put:
- *     summary: Updates an existing professor.
+ *     summary: Updates an existing term.
  *     tags: [Terms Routes]
  *     parameters:
  *      - in: path
@@ -149,7 +149,7 @@ module.exports = router;
  *@openapi
  * /terms/{id}:
  *   delete:
- *     summary: Deletes a existing professor.
+ *     summary: Deletes a existing term.
  *     tags: [Terms Routes]
  *     parameters:
  *      - in: path
@@ -157,7 +157,7 @@ module.exports = router;
  *        schema:
  *          type: string
  *          required: true
- *          description: The id of the professor.
+ *          description: The id of the term.
  *     responses:
  *       200:
  *         description: Example returned
