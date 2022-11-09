@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createAttendance, deleteAttendance } = require('../controllers/attendance/attendanceController');
+const { createAttendance, deleteAttendance, listStudentsOnCourse } = require('../controllers/attendance/attendanceController');
 
 router.post('/', createAttendance);
 router.delete('/:id', deleteAttendance);
+router.get('/course/:id', listStudentsOnCourse);
 
 module.exports = router;
 
@@ -76,5 +77,32 @@ module.exports = router;
  *       500:
  *         description: Server error
  * 
+ * @openapi
+ * /attendance/course/{id}:
+ *   get:
+ *     summary: Gets all students per given course.
+ *     tags: [Attendance Routes]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *          required: true
+ *          description: The id of the course.
+ *     responses:
+ *       200:
+ *         description: Example returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               schema:
+ *                 $ref: '#/components/schemas/Attendance'
+ *               example:
+ *                 id: 1
+ *                 studentId: 1
+ *                 courseId: 1
+ *       500:
+ *         description: Server error
  * 
  */
