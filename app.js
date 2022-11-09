@@ -13,9 +13,6 @@ app.get('/', (req, res) => {
   res.send('Hello world!');
 });
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-
 app.use('/students', StudentRoute)
 app.use('/professors', ProfessorRoute);
 app.use('/terms', TermsRoute);
