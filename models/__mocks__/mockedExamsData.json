@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "date_time": "2019-01-01 00:00:00",
+        "status": false,
+        "points": 0,
+        "studentId": 1,
+        "termId": 1,
+        "courseId": 1
+    },
+    {
+        "id": 2,
+        "date_time": "2022-01-01 00:00:00",
+        "status": false,
+        "points": 0,
+        "studentId": 2,
+        "termId": 2,
+        "courseId": 2
+    },
+    {
+        "id": 3,
+        "date_time": "2012-01-01 00:00:00",
+        "status": false,
+        "points": 0,
+        "studentId": 3,
+        "termId": 3,
+        "courseId": 3
+    }
+]

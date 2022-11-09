@@ -4,20 +4,8 @@ const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
 const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
 
-// Mocking the database and the model
 jest.mock('../../config/db-config');
 jest.mock('../../models/professorModel');
-
-// Initializing the server variable
-// let server;
-
-// beforeEach(async () => {
-// server = app.listen(3000);
-// }); // Starts server before each test
-
-// afterEach(async () => {
-// await server.close();
-// }); // Closes server after each test
 
 describe('Professor Controller', () => {
 
