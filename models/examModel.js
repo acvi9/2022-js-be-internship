@@ -4,7 +4,7 @@ const database = require('../config/db-config');
 const Exam = database.define('exam', {
   date_time: {
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: false,
   },
   status: {
     type: DataTypes.BOOLEAN,
