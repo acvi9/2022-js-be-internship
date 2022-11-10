@@ -35,7 +35,7 @@ const createExam = async (req, res) => {
       date_time: req.body.date_time,
       status: req.body.status,
       points: req.body.points,
-      professorId: req.body.professorId,
+      studentId: req.body.studentId,
       courseId: req.body.courseId,
       termId: req.body.termId,
     }
@@ -72,7 +72,7 @@ const updateExam = async (req, res) => {
       date_time: req.body.date_time,
       status: req.body.status,
       points: req.body.points,
-      professorId: req.body.professorId,
+      studentId: req.body.studentId,
       courseId: req.body.courseId,
       termId: req.body.termId,
       
