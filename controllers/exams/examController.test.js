@@ -7,6 +7,7 @@ const mockedTermsData = require('../../models/__mocks__/mockedTermsData.json');
 
 jest.mock('../../config/db-config');
 jest.mock('../../models/examModel');
+jest.mock('../../models/termsModel.js');
 
 describe('Exam Controller', () => {
 
@@ -114,7 +115,8 @@ describe('Exam Controller', () => {
 
       const response = await request(app)
         .get('/exams/analytics/1');
-
+      console.log(response.body.analytics)
       expect(response.status).toBe(STATUS_CODES.STATUS_OK);
+      expect(response.body.exam).toMatchObject(mockedExamsData[0]);
     })
   })});
