@@ -255,6 +255,6 @@ module.exports = router;
  *                 $ref: '#/components/schemas/Exam'
  *               example:
  *                 term: Junski
- *                 numStudents: 10
+ *                 numExams: 10
  *                 passRatio: 80
  */

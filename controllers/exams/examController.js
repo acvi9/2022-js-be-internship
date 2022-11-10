@@ -132,7 +132,7 @@ const examAnalytics = async (req, res) => {
 
     const analytics = {
       term: term.name,
-      numStudents: exams,
+      numExams: exams,
       passRatio: Math.round(passedExams.length / exams * 100, 2),
 
     }
