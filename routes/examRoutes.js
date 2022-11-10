@@ -256,5 +256,10 @@ module.exports = router;
  *               example:
  *                 term: Junski
  *                 numExams: 10
+ *                 numStudents: 100
+ *                 numPassed: 8
+ *                 numFailed: 2
  *                 passRatio: 80
+ *                 attemptRatio: 10
+ * 
  */

@@ -119,6 +119,8 @@ const examAnalytics = async (req, res) => {
       where: {id: ID, }
     });
 
+    const students = await Student.findAll()
+
     const failedExams = await Exam.findAll({
       where: {termId: ID, status: false}
     })
@@ -133,8 +135,11 @@ const examAnalytics = async (req, res) => {
     const analytics = {
       term: term.name,
       numExams: exams,
-      passRatio: Math.round(passedExams.length / exams * 100, 2),
-
+      numStudents: students.length,
+      numPassed: passedExams.length,
+      numFailed: failedExams.length,
+      passRatio: `${Math.round(passedExams.length / exams * 100, 2)} %`,
+      attemptRatio: `${Math.round(exams / students.length *100, 2)} %`,
     }
 
     res.status(STATUS_CODES.STATUS_OK).json({analytics});
