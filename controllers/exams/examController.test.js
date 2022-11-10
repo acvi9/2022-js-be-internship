@@ -101,7 +101,6 @@ describe('Exam Controller', () => {
 
       const response = await request(app)
         .get('/exams/student/1');
-      console.log(response)
       expect(response.status).toBe(STATUS_CODES.STATUS_OK);
       expect(response.body.exams[0]).toEqual(mockedExamsData[0]);
     })
