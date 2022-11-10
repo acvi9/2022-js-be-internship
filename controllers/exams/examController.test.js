@@ -108,7 +108,6 @@ describe('Exam Controller', () => {
       expect(response.body.exams[0]).toEqual(mockedExamsData[0]);
     })
   })
-  console.log('cao')
 
   describe('GET - get exam analytics per term', () => {
     test('Should calculate exam analytics of term with ID = 1', async () => {
