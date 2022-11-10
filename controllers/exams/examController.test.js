@@ -25,7 +25,7 @@ describe('Exam Controller', () => {
         .get('/exams/1');
   
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-      expect(res.body).toMatchObject({'exams':mockedExamsData[0]});
+      expect(res.body).toMatchObject({'exam':mockedExamsData[0]});
     })
   });
   describe('POST - Create a new exam', () => {
@@ -38,7 +38,7 @@ describe('Exam Controller', () => {
         'date_time': '2022-01-01 00:00:00',
         'status': true,
         'points': 100,
-        'professorId': 1,
+        'studentId': 1,
         'courseId': 1,
         'termId': 1,
       }
@@ -55,7 +55,7 @@ describe('Exam Controller', () => {
       expect(lastItem.date_time).toBe(newExam.date_time);
       expect(lastItem.status).toBe(newExam.status);
       expect(lastItem.points).toBe(newExam.points);
-      expect(lastItem.professorId).toBe(newExam.professorId);
+      expect(lastItem.studentId).toBe(newExam.studentId);
       expect(lastItem.courseId).toBe(newExam.courseId);
       expect(lastItem.termId).toBe(newExam.termId);
             
@@ -81,7 +81,7 @@ describe('Exam Controller', () => {
         'date_time': '2022-01-01 00:00:00',
         'status': true,
         'points': 100,
-        'professorId': 1,
+        'studentId': 1,
         'courseId': 1,
         'termId': 1,
       }
@@ -103,7 +103,7 @@ describe('Exam Controller', () => {
         .get('/exams/student/1');
       console.log(response)
       expect(response.status).toBe(STATUS_CODES.STATUS_OK);
-      expect(response.body.exams).toEqual(mockedExamsData[0]);
+      expect(response.body.exams[0]).toEqual(mockedExamsData[0]);
     })
   })
 });
