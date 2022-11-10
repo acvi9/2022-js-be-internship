@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { listAllExams, findByID, createExam, updateExam, deleteExam} = require('../controllers/exams/examController');
+const { listAllExams, findByID, createExam, updateExam, deleteExam, listStudentExams} = require('../controllers/exams/examController');
 
 router.get('/', listAllExams);
 router.get('/:id', findByID);
 router.post('/', createExam);
 router.put('/:id', updateExam);
 router.delete('/:id', deleteExam);
+router.get('/student/:id', listStudentExams);
 
 module.exports = router;
 
@@ -99,7 +100,7 @@ module.exports = router;
  *                 type: number
  *               points:
  *                 type: number
- *               professorId:
+ *               studentId:
  *                 type: number
  *               courseId:
  *                 type: number
@@ -119,13 +120,43 @@ module.exports = router;
  *                 date_time: 2022-01-17T04:33:12.000Z
  *                 status: false
  *                 points: 7
- *                 professorId: 1
+ *                 studentId: 1
  *                 courseId: 1
  *                 termId: 1
  *       500:
  *         description: Server error
+ * 
+ * @openapi
+ * /exams/student/{id}:
+ *   get:
+ *     summary: Gets all exams of given student.
+ *     tags: [Exam Routes]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *          required: true
+ *          description: The id of the course.
+ *     responses:
+ *       200:
+ *         description: Example returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               schema:
+ *                 $ref: '#/components/schemas/Exam'
+ *               example:
+ *                 id: 1
+ *                 date_time: 2022-01-17T04:33:12.000Z
+ *                 status: false
+ *                 points: 7
+ *                 studentId: 1
+ *                 courseId: 1
+ *                 termId: 1
  */
-
+/**
 /**
  * @openapi
  * /exams/{id}:
@@ -152,7 +183,7 @@ module.exports = router;
  *                 type: number
  *               points:
  *                 type: number
- *               professorId:
+ *               studentId:
  *                 type: number
  *               courseId:
  *                 type: number
@@ -172,7 +203,7 @@ module.exports = router;
  *                 date_time: 2022-01-17T04:33:12.000Z
  *                 status: false
  *                 points: 7
- *                 professorId: 1
+ *                 studentId: 1
  *                 courseId: 1
  *                 termId: 1
  *       500:

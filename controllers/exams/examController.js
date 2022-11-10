@@ -1,5 +1,6 @@
 const Exam = require('../../models/examModel');
 const {STATUS_CODES} = require('../../constants');
+const Student = require('../../models/studentModel');
 
 const listAllExams = async (req, res) => {
   try {
@@ -89,11 +90,31 @@ const updateExam = async (req, res) => {
   }
 }
 
+const listStudentExams = async (req, res) => {
+  try {
+    let ID = req.params.id;
+
+    const student = await Student.findOne({
+      where: {id: ID, }
+    });
+
+    const exams = await Exam.findAll({
+      where: {studentId: student.id},
+      order: [['status', 'ASC']],
+    })
+
+    res.status(STATUS_CODES.STATUS_OK).json({exams});
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+}
+
 module.exports = {
+  listStudentExams,
   listAllExams,
   findByID,
   createExam,
   updateExam,
-  deleteExam
+  deleteExam,
 }
   
