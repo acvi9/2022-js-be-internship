@@ -1,5 +1,6 @@
 const Student = require('../../models/studentModel');
 const {STATUS_CODES} = require('../../constants');
+const bcrypt = require('bcrypt');
 
 const listAllStudents = async (req, res) => {
   try {
@@ -32,12 +33,12 @@ const findByID = async (req, res) => {
 
 const createStudent = async (req, res) => {
   try {
-
+    const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
     const tempStudent = {
       name: req.body.name,
       surname: req.body.surname,
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
     }
     const student = await Student.create(tempStudent);
     res.status(STATUS_CODES.STATUS_OK).json(student);
@@ -67,12 +68,12 @@ const updateStudent = async (req, res) => {
   try {
 
     let ID = req.params.id;
-
+    const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
     const student = await Student.update({
       name: req.body.name,
       surname: req.body.surname,
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
     }, {
       where: {id: ID},
     });

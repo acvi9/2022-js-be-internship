@@ -8,6 +8,13 @@ jest.mock('../../config/db-config');
 jest.mock('../../models/studentModel');
 
 describe('Student Controller', () => {
+  beforeAll(async () => {
+    server = app.listen(3000);
+  }); // Starts server before each test
+  
+  afterAll(async () => {
+    await server.close();
+  }); // Closes server after each test
 
   describe('GET - List All students', () => {
     test('Should return all students', async () => {

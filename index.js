@@ -43,7 +43,8 @@ const options = {
   },
   apis: ['./index.js', './models/professorModel.js', './models/studentModel.js', './models/courseModel.js', './models/termsModel.js',
     './routes/professorRoutes.js', './routes/studentRoutes.js', './routes/courseRoutes.js', './routes/termsRoutes.js',
-    './models/examModel.js', './routes/examRoutes.js', './routes/attendanceRoutes.js', './models/attendanceModel.js'],
+    './models/examModel.js', './routes/examRoutes.js', './routes/attendanceRoutes.js', './models/attendanceModel.js','./routes/loginRoutes.js'],
+
 }
 
 const specs = swaggerJSDoc(options);

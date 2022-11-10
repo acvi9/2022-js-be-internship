@@ -4,7 +4,7 @@
   "description": "Depending on the type of user, the system has different functionalities. Types of users are students and professors.",
   "main": "index.js",
   "scripts": {
-    "test-jest": "jest -i controllers/courses/courseController.test.js -t",
+    "test-jest": "jest -i controllers/login/loginController.test.js -t",
     "test": "jest",
     "app-setup": "npm install && node db-sync.js && node ./seeders/initialSeeder.js && npm start",
     "start": "nodemon index.js"
@@ -21,10 +21,12 @@
   },
   "homepage": "https://github.com/acvi9/2022-js-be-internship#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.25.3",
     "sequelize-cli": "^6.5.2",

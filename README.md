@@ -55,10 +55,13 @@ DB_HOST = "localhost"
 DB_DIALECT = "mysql"
 PORT = 3000
 ```
+**3 -** Create database:
 
-
-**3 -** Start database in MySQL Workbench<br>
-**4 -** Run application setup script ```npm run app-setup```<br>
+```sql
+CREATE SCHEMA `college_organization` ;
+```
+**4 -** Start database in MySQL Workbench<br>
+**5 -** Run application setup script ```npm run app-setup```<br>
 
 
 
