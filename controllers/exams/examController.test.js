@@ -96,5 +96,14 @@ describe('Exam Controller', () => {
       expect(res.body).toMatchObject({'message':'Exam updated!'});
     })
   })
+  describe('GET - get exams of student', () => {
+    test('Should get an exams of student with ID = 1', async () => {
 
+      const response = await request(app)
+        .get('/exams/student/1');
+      console.log(response)
+      expect(response.status).toBe(STATUS_CODES.STATUS_OK);
+      expect(response.body.exams).toEqual(mockedExamsData[0]);
+    })
+  })
 });
