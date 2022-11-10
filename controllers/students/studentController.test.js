@@ -4,20 +4,8 @@ const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
 const mockedStudentsData = require('../../models/__mocks__/mockedStudentsData.json');
 
-// Mocking the database and the model
 jest.mock('../../config/db-config');
 jest.mock('../../models/studentModel');
-
-// Initializing the server variable
-// let server;
-
-// beforeEach(async () => {
-// server = app.listen(3000);
-// }); // Starts server before each test
-
-// afterEach(async () => {
-// await server.close();
-// }); // Closes server after each test
 
 describe('Student Controller', () => {
   beforeAll(async () => {
@@ -79,10 +67,10 @@ describe('Student Controller', () => {
   });
 
   describe('DELETE - Delete a student', () => {
-    test('Should delete a student with ID = 3', async () => {
+    test('Should delete a student with ID = 1', async () => {
 
       const res = await request(app)
-        .delete('/students/11');
+        .delete('/students/1');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(res.body).toMatchObject({'message':'Student deleted!'});
