@@ -45,7 +45,8 @@ const listStudentsOnCourse = async (req, res) => {
     for (let i = 0; i < students.length; i++) {
 
       let studentName = await Student.findOne({
-        where: {id: students[i].studentId, }
+        where: {id: students[i].studentId},
+        attributes: {exclude: ['password']},
       });
 
       studentNames.push(studentName);
