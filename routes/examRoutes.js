@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { listAllExams, findByID, createExam, updateExam, deleteExam, listStudentExams} = require('../controllers/exams/examController');
+const { listAllExams, findByID, createExam, updateExam, deleteExam, listStudentExams, examAnalytics} = require('../controllers/exams/examController');
 
 router.get('/', listAllExams);
 router.get('/:id', findByID);
@@ -8,6 +8,7 @@ router.post('/', createExam);
 router.put('/:id', updateExam);
 router.delete('/:id', deleteExam);
 router.get('/student/:id', listStudentExams);
+router.get('/analytics/:id', examAnalytics)
 
 module.exports = router;
 
@@ -228,4 +229,32 @@ module.exports = router;
  *         description: Exam deleted.
  *       500:
  *         description: Server error
+ * 
+ * 
+ * 
+ * @openapi
+ * /exams/analytics/{id}:
+ *   get:
+ *     summary: Shows exam analytics for a given term.
+ *     tags: [Exam Routes]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *          required: true
+ *          description: The id of the term.
+ *     responses:
+ *       200:
+ *         description: Example returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               schema:
+ *                 $ref: '#/components/schemas/Exam'
+ *               example:
+ *                 term: Junski
+ *                 numStudents: 10
+ *                 passRatio: 80
  */

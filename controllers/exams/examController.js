@@ -1,6 +1,7 @@
 const Exam = require('../../models/examModel');
 const {STATUS_CODES} = require('../../constants');
 const Student = require('../../models/studentModel');
+const Term = require('../../models/termsModel');
 
 const listAllExams = async (req, res) => {
   try {
@@ -90,6 +91,7 @@ const updateExam = async (req, res) => {
   }
 }
 
+
 const listStudentExams = async (req, res) => {
   try {
     let ID = req.params.id;
@@ -109,6 +111,39 @@ const listStudentExams = async (req, res) => {
   }
 }
 
+const examAnalytics = async (req, res) => {
+  try {
+    let ID = req.params.id;
+
+    const term = await Term.findOne({
+      where: {id: ID, }
+    });
+
+    const failedExams = await Exam.findAll({
+      where: {termId: ID, status: false}
+    })
+
+    const passedExams = await Exam.findAll({
+      where: {termId: ID, status: true}
+    })
+
+
+    let exams = failedExams.length + passedExams.length;
+
+    const analytics = {
+      term: term.name,
+      numStudents: exams,
+      passRatio: Math.round(passedExams.length / exams * 100, 2),
+
+    }
+
+    res.status(STATUS_CODES.STATUS_OK).json({analytics});
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+}
+
+
 module.exports = {
   listStudentExams,
   listAllExams,
@@ -116,5 +151,6 @@ module.exports = {
   createExam,
   updateExam,
   deleteExam,
+  examAnalytics
 }
   
