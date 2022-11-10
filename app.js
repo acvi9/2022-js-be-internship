@@ -1,19 +1,16 @@
 const express = require('express');
-// eslint-disable-next-line no-unused-vars
-const bodyParser = require('body-parser');
-const app = express();
 const ProfessorRoute = require('./routes/professorRoutes');
 const StudentRoute = require('./routes/studentRoutes.js');
 const TermRoute = require('./routes/termsRoutes');
 const CourseRoute = require('./routes/courseRoutes');
-
 const AttendanceRoute = require('./routes/attendanceRoutes');
 const ExamRoute = require('./routes/examRoutes');
+const LoginRoute = require('./routes/loginRoutes')
+
+const app = express();
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json())
-const LoginRoute = require('./routes/loginRoutes')
-
 
 app.get('/', (req, res) => {
   res.send('Hello world!');

@@ -3,7 +3,6 @@ const request = require('supertest');
 const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
 const mockedExamsData = require('../../models/__mocks__/mockedExamsData.json');
-const mockedTermsData = require('../../models/__mocks__/mockedTermsData.json');
 
 jest.mock('../../config/db-config');
 jest.mock('../../models/examModel');
@@ -114,8 +113,9 @@ describe('Exam Controller', () => {
 
       const response = await request(app)
         .get('/exams/analytics/1');
-      console.log(response.body.analytics)
+
       expect(response.status).toBe(STATUS_CODES.STATUS_OK);
-      expect(response.body.exam).toMatchObject(mockedExamsData[0]);
     })
-  })});
+  })
+
+});
