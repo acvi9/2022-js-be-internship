@@ -19,19 +19,15 @@ describe('Attendance Controller', () => {
         'studentId': 1,
         'courseId': 1
       }
-  
-      mockedAttendanceData.push(newAttendance);
-  
       const res = await request(app)
         .post('/attendance')
         .send(newAttendance);
   
-      let lastItem = mockedAttendanceData[mockedAttendanceData.length - 1];
-  
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-      expect(lastItem.studentId).toBe(newAttendance.studentId);
-      expect(lastItem.courseId).toBe(newAttendance.courseId);
-              
+      expect(res.body).toHaveProperty('id');
+      expect(res.body).toHaveProperty('studentId');
+      expect(res.body).toHaveProperty('courseId');
+    
     })
   });
   
