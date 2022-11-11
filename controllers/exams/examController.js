@@ -1,5 +1,7 @@
 const Exam = require('../../models/examModel');
 const {STATUS_CODES} = require('../../constants');
+const Student = require('../../models/studentModel');
+const Term = require('../../models/termsModel');
 
 const listAllExams = async (req, res) => {
   try {
@@ -34,7 +36,7 @@ const createExam = async (req, res) => {
       date_time: req.body.date_time,
       status: req.body.status,
       points: req.body.points,
-      professorId: req.body.professorId,
+      studentId: req.body.studentId,
       courseId: req.body.courseId,
       termId: req.body.termId,
     }
@@ -71,7 +73,7 @@ const updateExam = async (req, res) => {
       date_time: req.body.date_time,
       status: req.body.status,
       points: req.body.points,
-      professorId: req.body.professorId,
+      studentId: req.body.studentId,
       courseId: req.body.courseId,
       termId: req.body.termId,
       
@@ -89,11 +91,71 @@ const updateExam = async (req, res) => {
   }
 }
 
+
+const listStudentExams = async (req, res) => {
+  try {
+    let ID = req.params.id;
+
+    const student = await Student.findOne({
+      where: {id: ID, }
+    });
+
+    const exams = await Exam.findAll({
+      where: {studentId: student.id},
+      order: [['status', 'ASC']],
+    })
+
+    res.status(STATUS_CODES.STATUS_OK).json({exams});
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+}
+
+const examAnalytics = async (req, res) => {
+  try {
+    let ID = req.params.id;
+
+    const term = await Term.findOne({
+      where: {id: ID, }
+    });
+
+    const students = await Student.findAll()
+
+    const failedExams = await Exam.findAll({
+      where: {termId: ID, status: false}
+    })
+
+    const passedExams = await Exam.findAll({
+      where: {termId: ID, status: true}
+    })
+
+
+    let exams = failedExams.length + passedExams.length;
+
+    const analytics = {
+      term: term.name,
+      numExams: exams,
+      numStudents: students.length,
+      numPassed: passedExams.length,
+      numFailed: failedExams.length,
+      passRatio: `${Math.round(passedExams.length / exams * 100, 2)} %`,
+      attemptRatio: `${Math.round(exams / students.length *100, 2)} %`,
+    }
+
+    res.status(STATUS_CODES.STATUS_OK).json({analytics});
+  } catch (error) {
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+}
+
+
 module.exports = {
+  listStudentExams,
   listAllExams,
   findByID,
   createExam,
   updateExam,
-  deleteExam
+  deleteExam,
+  examAnalytics
 }
   
