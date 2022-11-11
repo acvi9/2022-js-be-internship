@@ -1,5 +1,6 @@
 const mockedSequelize = require('../../config/__mocks__/db-config');
 const mockedCoursesData = require('./mockedCoursesData.json');
+
 const mockCourse = mockedSequelize.define('Course',  {
   id: 1,
   name: 'TEST',

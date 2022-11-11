@@ -8,6 +8,7 @@ const mockTerms = mockedSequelize.define('Term',  {
   to: '2022-06-23T14:30:59.000Z',
 });
 
+// eslint-disable-next-line no-unused-vars
 mockedSequelize.models.Term.$queryInterface.$useHandler(function(query, queryOptions, done) {
   if (query === 'findOne') {
     return Promise.resolve(mockedTermsData[1]);

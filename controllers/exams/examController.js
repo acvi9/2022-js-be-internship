@@ -1,7 +1,7 @@
 const Exam = require('../../models/examModel');
-const {STATUS_CODES} = require('../../constants');
 const Student = require('../../models/studentModel');
 const Term = require('../../models/termsModel');
+const {STATUS_CODES} = require('../../constants');
 
 const listAllExams = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
+const bcrypt = require('bcrypt');
 const Student = require('../../models/studentModel');
 const {STATUS_CODES} = require('../../constants');
-const bcrypt = require('bcrypt');
 
 const listAllStudents = async (req, res) => {
   try {

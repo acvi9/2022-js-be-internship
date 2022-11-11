@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 const request = require('supertest');
-const {STATUS_CODES} = require('../../constants');
 const app = require('../../app');
 const mockedCoursesData = require('../../models/__mocks__/mockedCoursesData.json');
-
+const {STATUS_CODES} = require('../../constants');
 
 jest.mock('../../config/db-config');
 jest.mock('../../models/courseModel');
