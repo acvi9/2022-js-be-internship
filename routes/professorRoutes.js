@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { listAllProfessors, findByID, createProfessor, updateProfessor, deleteProfessor } = require('../controllers/professors/professorController');
+const { listAllProfessors, findProfessorByID, createProfessor, updateProfessor, deleteProfessor } = require('../controllers/professors/professorController');
 
 router.get('/', listAllProfessors);
-router.get('/:id', findByID);
+router.get('/:id', findProfessorByID);
 router.post('/', createProfessor);
 router.put('/:id', updateProfessor);
 router.delete('/:id', deleteProfessor);

@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { listAllTerms, findByID, createTerm, deleteTerm, updateTerm } = require('../controllers/terms/termsController');
+const { listAllTerms, findTermByID, createTerm, deleteTerm, updateTerm } = require('../controllers/terms/termsController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
-router.get('/', listAllTerms);
-router.get('/:id', findByID);
-router.post('/', createTerm);
-router.put('/:id', updateTerm);
-router.delete('/:id', deleteTerm);
+router.get('/', authenticateJWT, listAllTerms);
+router.get('/:id',authenticateJWT, findTermByID);
+router.post('/', authenticateJWT, createTerm);
+router.put('/:id', authenticateJWT, updateTerm);
+router.delete('/:id', authenticateJWT, deleteTerm);
 
 
 module.exports = router;

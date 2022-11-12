@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { listAllStudents, findByID, createStudent, deleteStudent, updateStudent } = require('../controllers/students/studentController');
+const { listAllStudents, findStudentByID, createStudent, deleteStudent, updateStudent } = require('../controllers/students/studentController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
-router.get('/', listAllStudents);
-router.get('/:id', findByID);
-router.post('/', createStudent);
-router.put('/:id', updateStudent);
-router.delete('/:id', deleteStudent);
+
+router.get('/', authenticateJWT, listAllStudents);
+router.get('/:id', authenticateJWT, findStudentByID);
+router.post('/', authenticateJWT, createStudent);
+router.put('/:id', authenticateJWT, updateStudent);
+router.delete('/:id', authenticateJWT, deleteStudent);
 
 
 module.exports = router;

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { listAllExams, findByID, createExam, updateExam, deleteExam} = require('../controllers/exams/examController');
+const { listAllExams, findExamByID, createExam, updateExam, deleteExam} = require('../controllers/exams/examController');
 
 router.get('/', listAllExams);
-router.get('/:id', findByID);
+router.get('/:id', findExamByID);
 router.post('/', createExam);
 router.put('/:id', updateExam);
 router.delete('/:id', deleteExam);

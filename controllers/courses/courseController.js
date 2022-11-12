@@ -10,7 +10,7 @@ const listAllCourses = async (req, res) => {
   }
 }
 
-const findByID = async (req, res) => {
+const findCourseByID = async (req, res) => {
   try {
 
     let ID = req.params.id;
@@ -89,7 +89,7 @@ const updateCourse = async (req, res) => {
 
 module.exports = {
   listAllCourses,
-  findByID,
+  findCourseByID,
   createCourse,
   deleteCourse,
   updateCourse

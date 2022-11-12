@@ -8,11 +8,11 @@ const CourseRoute = require('./routes/courseRoutes');
 
 const AttendanceRoute = require('./routes/attendanceRoutes');
 const ExamRoute = require('./routes/examRoutes');
+const LoginRoute = require('./routes/loginRoutes')
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json())
-const LoginRoute = require('./routes/loginRoutes')
-const ExamRoute = require('./routes/examRoutes');
+
 
 
 app.get('/', (req, res) => {

@@ -15,7 +15,7 @@ const listAllProfessors = async (req, res) => {
   }
 }
 
-const findByID = async (req, res) => {
+const findProfessorByID = async (req, res) => {
   try {
     let ID = req.params.id;
 
@@ -94,7 +94,7 @@ const updateProfessor = async (req, res) => {
 
 module.exports = {
   listAllProfessors,
-  findByID,
+  findProfessorByID,
   createProfessor,
   deleteProfessor,
   updateProfessor

@@ -1,0 +1,11 @@
+{
+    "student":[
+        "listAllTerms", "findTermById",
+        "findStudentById", "updateStudent"
+    ],
+    "professor": [
+        "listAllTerms", "findTermById", "createTerm", "updateTerm", "deleteTerm",
+        "listAllStudents", "findStudentByID", "createStudent", "deleteStudent", "updateStudent"
+    ]
+
+}

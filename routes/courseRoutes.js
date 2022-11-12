@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { listAllCourses, createCourse, deleteCourse, updateCourse, findByID } = require('../controllers/courses/courseController');
+const { listAllCourses, createCourse, deleteCourse, updateCourse, findCourseByID } = require('../controllers/courses/courseController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
-router.get('/', listAllCourses);
-router.get('/:id', findByID);
+router.get('/', authenticateJWT, listAllCourses);
+router.get('/:id', findCourseByID);
 router.post('/', createCourse);
 router.put('/:id', updateCourse);
 router.delete('/:id', deleteCourse);

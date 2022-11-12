@@ -3,18 +3,24 @@ const Student = require('../../models/studentModel');
 const {STATUS_CODES} = require('../../constants');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const {isStudent, generateToken, isProfessor} = require('../../utils/authenticationUtils')
 
 const login = async(req,res) => {
 
-    const model = isStudent(req.body.email) ? Student : Professor;
+    let model;
+    if(isStudent(req.body.email))
+        model = Student;
+    else if(isProfessor(req.body.email))
+        model = Professor;
+    else
+        return res.sendStatus(STATUS_CODES.NOT_FOUND);
+
     try {
         const user = await model.findOne({
         where: {email: req.body.email},
         }); 
         if(!user){
-            res.sendStatus(STATUS_CODES.NOT_FOUND);
-            return;
+            return res.sendStatus(STATUS_CODES.NOT_FOUND);
         }
         const passwordCompared = bcrypt.compareSync(req.body.password.toString(),user.password);
         if(passwordCompared){
@@ -27,20 +33,6 @@ const login = async(req,res) => {
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
     }
-
-}
-
-const isStudent = (email) => {
-
-    const result = /^[a-z]{2,}\.[a-z]{2,}\.student[0-9]+@gmail.com/.test(email);
-    return result;
-
-}
-
-const generateToken = (email,role) => {
-
-    const accessToken = jwt.sign({ email: email,  role: role }, process.env.JWT_SECRET_KEY, { expiresIn: '6h' });
-    return accessToken;
 
 }
 

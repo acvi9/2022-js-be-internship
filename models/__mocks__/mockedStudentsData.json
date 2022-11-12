@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "email": "andrew@mock.com",
+    "email": "andrew.adrewic.student1@gmail.com",
     "name": "Andrew",
     "surname": "Andrewic",
-    "password": "123"
+    "password": "$2b$10$1hcd0OfQgAVDFOQReuEK9usxmXfsc/dM0SDjYXgI2llmSHTX7hOe6"
   },
   {
     "id": 2,
