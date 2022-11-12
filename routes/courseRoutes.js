@@ -3,11 +3,11 @@ const router = express.Router();
 const { listAllCourses, createCourse, deleteCourse, updateCourse, findCourseByID } = require('../controllers/courses/courseController');
 const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
-router.get('/', authenticateJWT, listAllCourses);
+router.get('/', listAllCourses);
 router.get('/:id', findCourseByID);
-router.post('/', createCourse);
-router.put('/:id', updateCourse);
-router.delete('/:id', deleteCourse);
+router.post('/', authenticateJWT, createCourse);
+router.put('/:id', authenticateJWT, updateCourse);
+router.delete('/:id', authenticateJWT, deleteCourse);
 
 
 module.exports = router;

@@ -1,8 +1,7 @@
+const bcrypt = require('bcrypt');
 const Professor = require('../../models/professorModel');
 const Student = require('../../models/studentModel');
 const {STATUS_CODES} = require('../../constants');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const {isStudent, generateToken, isProfessor} = require('../../utils/authenticationUtils')
 
 const login = async(req,res) => {
@@ -24,7 +23,7 @@ const login = async(req,res) => {
         }
         const passwordCompared = bcrypt.compareSync(req.body.password.toString(),user.password);
         if(passwordCompared){
-            const accessToken = generateToken(user.email,model.name);
+            const accessToken = generateToken(user.email,model.name,user.id);
             res.status(STATUS_CODES.STATUS_OK).json({'jwt':accessToken});
         } 
         else{
@@ -33,9 +32,9 @@ const login = async(req,res) => {
     } catch (error) {
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
     }
-
+    
 }
 
 module.exports = {
-    login,
+  login,
 }

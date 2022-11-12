@@ -1,29 +1,42 @@
-const express = require('express');
+//const express = require('express');
 
-//get student by id, update student
-const listAllProfessors = (req,res,email) => {
-    return true;
-}
-
-const findStudentByID = (req,res,email) => {
-    console.log("u find studentu smo");
-    const id = email.match(/(\d+)/)[0];
-    console.log("id ", id);
-    if(id == req.params.id)
-        return true;
-    else 
-        return false;
-}
-
-const listAllTerms = (req,res,email) => {
-    return true;
-}
 
 module.exports = {
-    student: {
-        findStudentByID,
-    },
-    professor: {
-        listAllTerms,findStudentByID
-    }
+    //Courses
+    listAllCourses: [],
+    findCourseByID: [],
+    createCourse: ["professor"],
+    deleteCourse: ["professor"],
+    updateCourse: ["professor"],
+    //Terms
+    listAllTerms: ["student","professor"], 
+    findTermByID: ["student","professor"], 
+    createTerm: ["professor"], 
+    deleteTerm: ["professor"], 
+    updateTerm: ["professor"],
+    //Professors
+    listAllProfessors: [],
+    findProfessorByID: [],
+    createProfessor: ["professor"],
+    deleteProfessor: ["professor"],
+    updateProfessor: ["professor"],
+    //Students
+    listAllStudents: ["professor"],
+    findStudentByID: ["student","professor"],
+    createStudent: ["professor"],
+    deleteStudent: ["professor"],
+    updateStudent: ["student","professor"],
+    //Attendance
+    createAttendance: [],
+    deleteAttendance: [],
+    listStudentsOnCourse: [],
+    listCoursesOfStudent: [],
+    //Exams
+    listStudentExams: [],
+    listAllExams: [],
+    findExamByID: [],
+    createExam: [],
+    updateExam: [],
+    deleteExam: [],
+    examAnalytics: []
 }

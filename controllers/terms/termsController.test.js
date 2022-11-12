@@ -1,23 +1,11 @@
 /* eslint-disable no-undef */
 const request = require('supertest');
 const app = require('../../app');
-const {STATUS_CODES} = require('../../constants');
 const mockedTermsData = require('../../models/__mocks__/mockedTermsData.json');
+const {STATUS_CODES} = require('../../constants');
 
-// Mocking the database and the model
 jest.mock('../../config/db-config');
 jest.mock('../../models/termsModel.js');
-
-// Initializing the server variable
-// let server;
-
-// beforeEach(async () => {
-// server = app.listen(3000);
-// }); // Starts server before each test
-
-// afterEach(async () => {
-// await server.close();
-// }); // Closes server after each test
 
 describe('Terms Controller', () => {
 

@@ -1,5 +1,6 @@
 const Terms = require('../../models/termsModel');
 const {STATUS_CODES} = require('../../constants');
+
 const listAllTerms = async (req, res) => {
   try {
     const terms = await Terms.findAll();

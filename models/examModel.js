@@ -15,7 +15,7 @@ const Exam = database.define('exam', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  professorId: {
+  studentId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },

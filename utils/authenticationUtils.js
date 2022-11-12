@@ -15,9 +15,9 @@ const isProfessor = (email) => {
 
 }
 
-const generateToken = (email,role) => {
+const generateToken = (email,role,id) => {
 
-    const accessToken = jwt.sign({ email: email,  role: role }, process.env.JWT_SECRET_KEY, { expiresIn: '6h' });
+    const accessToken = jwt.sign({id:id, email: email,  role: role }, process.env.JWT_SECRET_KEY, { expiresIn: '6h' });
     return accessToken;
 
 }

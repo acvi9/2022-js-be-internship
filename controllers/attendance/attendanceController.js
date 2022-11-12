@@ -1,6 +1,6 @@
 const Attendance = require('../../models/attendanceModel');
-const Student = require('../../models/studentModel');
 const Course = require('../../models/courseModel');
+const Student = require('../../models/studentModel');
 const {STATUS_CODES} = require('../../constants');
 
 const createAttendance = async (req, res) => {
@@ -82,7 +82,6 @@ const listCoursesOfStudent = async (req, res) => {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
   }
 }
-
 
 module.exports = {
   createAttendance,

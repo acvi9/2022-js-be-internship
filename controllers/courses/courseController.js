@@ -31,14 +31,12 @@ const findCourseByID = async (req, res) => {
 const createCourse = async (req, res) => {
 
   try {
-
     const tempCourse = {
       name: req.body.name,
       description: req.body.description,
       espb: req.body.espb,
       professorId: req.body.professorId,
     }
-    
     const course = await Course.create(tempCourse);
     res.status(STATUS_CODES.STATUS_OK).json(course);
   } catch (error) {
@@ -50,11 +48,21 @@ const deleteCourse = async (req, res) => {
 
   try {
     let ID = req.params.id;
-    const course = await Course.destroy({
-      where: {id: ID},
+    const course = await Course.findOne({
+      where: {id: ID}
     });
     if (course) {
-      res.status(STATUS_CODES.STATUS_OK).json({message: 'Course deleted!'});
+      console.log(req.userData.id);
+      console.log(course.professorId);
+      if(req.userData.id == course.professorId){
+        await Course.destroy({
+          where: {id: ID}
+        });
+        res.status(STATUS_CODES.STATUS_OK).json({message: 'Course deleted!'});
+      }
+      else{
+        res.sendStatus(STATUS_CODES.FORBIDDEN);
+      }
     } else {
       res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
     }
@@ -65,20 +73,29 @@ const deleteCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
 
-  try {
 
+  try {
     let ID = req.params.id;
-    
-    const course = await Course.update({
-      name: req.body.name,
-      description: req.body.description,
-      espb: req.body.espb,
-      professorId: req.body.professorId,
-    }, {
-      where: {id: ID},
+    const course = await Course.findOne({
+      where: {id: ID}
     });
     if (course) {
-      res.status(STATUS_CODES.STATUS_OK).json({message: 'Course updated!'});
+      console.log(req.userData.id);
+      console.log(course.professorId);
+      if(req.userData.id == course.professorId){
+        await Course.update({
+          name: req.body.name,
+          description: req.body.description,
+          espb: req.body.espb,
+          professorId: req.body.professorId,
+        }, {
+          where: {id: ID},
+        });
+        res.status(STATUS_CODES.STATUS_OK).json({"msg":"Course updated!"});
+      }
+      else{
+        res.sendStatus(STATUS_CODES.FORBIDDEN);
+      }
     } else {
       res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
     }
@@ -94,3 +111,24 @@ module.exports = {
   deleteCourse,
   updateCourse
 }
+
+//   try {
+
+//     let ID = req.params.id;
+    
+//     const course = await Course.update({
+//       name: req.body.name,
+//       description: req.body.description,
+//       espb: req.body.espb,
+//       professorId: req.body.professorId,
+//     }, {
+//       where: {id: ID},
+//     });
+//     if (course) {
+//       res.status(STATUS_CODES.STATUS_OK).json({message: 'Course updated!'});
+//     } else {
+//       res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
+//     }
+//   } catch (error) {
+//     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
+//   }

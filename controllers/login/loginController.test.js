@@ -1,10 +1,9 @@
+/* eslint-disable no-undef */
 const request = require('supertest');
 const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
 require('dotenv').config();
 
-
-// Mocking the database and the model
 jest.mock('../../config/db-config');
 jest.mock('../../models/studentModel.js');
 jest.mock('../../models/professorModel.js');
@@ -47,5 +46,5 @@ describe('Login Controller', () => {
         expect(res.statusCode).toBe(STATUS_CODES.NOT_FOUND);
               
       })
-  })
+    })
 })
