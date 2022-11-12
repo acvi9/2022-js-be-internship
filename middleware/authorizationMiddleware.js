@@ -18,7 +18,7 @@ const authenticateJWT = (req, res, next) => {
             //console.log(functionName);
             //console.log(authorizationRules[data.role]);
             req.userData = data;
-            console.log(data);
+            //console.log(data);
             if(authorizationRules[functionName].includes(data.role))
                 next();
             else      

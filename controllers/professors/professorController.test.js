@@ -3,6 +3,7 @@ const request = require('supertest');
 const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
 const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
+require('dotenv').config();
 
 jest.mock('../../config/db-config');
 jest.mock('../../models/professorModel');

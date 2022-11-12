@@ -52,8 +52,8 @@ const deleteCourse = async (req, res) => {
       where: {id: ID}
     });
     if (course) {
-      console.log(req.userData.id);
-      console.log(course.professorId);
+      // console.log(req.userData.id);
+      // console.log(course.professorId);
       if(req.userData.id == course.professorId){
         await Course.destroy({
           where: {id: ID}
@@ -91,7 +91,7 @@ const updateCourse = async (req, res) => {
         }, {
           where: {id: ID},
         });
-        res.status(STATUS_CODES.STATUS_OK).json({"msg":"Course updated!"});
+        res.status(STATUS_CODES.STATUS_OK).json({message:"Course updated!"});
       }
       else{
         res.sendStatus(STATUS_CODES.FORBIDDEN);

@@ -3,16 +3,25 @@ const request = require('supertest');
 const app = require('../../app');
 const mockedTermsData = require('../../models/__mocks__/mockedTermsData.json');
 const {STATUS_CODES} = require('../../constants');
+require('dotenv').config();
+const {login} = require('../../utils/testingUtils');
 
 jest.mock('../../config/db-config');
 jest.mock('../../models/termsModel.js');
+jest.mock('../../models/professorModel.js');
 
 describe('Terms Controller', () => {
 
   describe('GET - List All terms', () => {
     test('Should return all tests', async () => {
+
+      //login
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
+
       const response = await request(app)
-        .get('/terms');
+        .get('/terms')
+        .auth(loginRes.body.jwt, { type: 'bearer' });
 
       expect(response.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(response.body).toMatchObject({'terms':mockedTermsData});
@@ -21,16 +30,24 @@ describe('Terms Controller', () => {
 
   describe('GET - Find By ID', () => {
     test('Should return a term with ID = 1', async () => {
+
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
+
       const res = await request(app)
-        .get('/terms/1');
+        .get('/terms/1')
+        .auth(loginRes.body.jwt, { type: 'bearer' });
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-      expect(res.body).toMatchObject({'terms':mockedTermsData[1]});
+      expect(res.body).toMatchObject({'terms':mockedTermsData[0]});
     })
   });
 
   describe('POST - Create a new term', () => {
     test('Should create a new term', async () => {
+
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
 
       let lastID = mockedTermsData[mockedTermsData.length - 1].id;
 
@@ -45,6 +62,7 @@ describe('Terms Controller', () => {
 
       const res = await request(app)
         .post('/terms')
+        .auth(loginRes.body.jwt, { type: 'bearer' })
         .send(newTerm);
 
       let lastItem = mockedTermsData[mockedTermsData.length - 1];
@@ -60,8 +78,12 @@ describe('Terms Controller', () => {
   describe('DELETE - Delete a term', () => {
     test('Should delete a term with ID = 1', async () => {
 
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
+
       const res = await request(app)
-        .delete('/terms/1');
+        .delete('/terms/1')
+        .auth(loginRes.body.jwt, { type: 'bearer' });
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(res.body).toMatchObject({'message':'Term deleted!'});
@@ -70,6 +92,9 @@ describe('Terms Controller', () => {
 
   describe('PUT - Update a term', () => {
     test('Should update a term with ID = 1', async () => {
+
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
 
       let updateTerm = {
         'id': 1,
@@ -80,9 +105,8 @@ describe('Terms Controller', () => {
 
       const res = await request(app)
         .put(`/terms/${updateTerm.id}`)
-        .send({
-          'message': 'term updated!',
-        });
+        .auth(loginRes.body.jwt, { type: 'bearer' })
+        .send(updateTerm);
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(res.body).toMatchObject({'message':'Term updated!'})
