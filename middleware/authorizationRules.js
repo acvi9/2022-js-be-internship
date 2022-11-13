@@ -27,10 +27,10 @@ module.exports = {
     deleteStudent: ["professor"],
     updateStudent: ["student","professor"],
     //Attendance
-    createAttendance: [],
-    deleteAttendance: [],
-    listStudentsOnCourse: [],
-    listCoursesOfStudent: [],
+    createAttendance: ["professor"],
+    deleteAttendance: ["professor"],
+    listStudentsOnCourse: ["professor"],
+    listCoursesOfStudent: ["student","professor"],
     //Exams
     listStudentExams: [],
     listAllExams: [],

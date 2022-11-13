@@ -3,22 +3,23 @@ const Professor = require('../models/professorModel');
 const Course = require('../models/courseModel');
 const Student = require('../models/studentModel');
 const Term = require('../models/termsModel');
+const bcrypt = require('bcrypt');
 
 database.sync()
   .then(()=>{
     return Professor.findOrCreate({
       where: {
-        email: 'milos@gmail.com'
+        email: 'profa.profic1@gmail.com'
       },
       defaults:{
-        name: 'Milos',
-        surname: 'Milosavljevic',
-        password: '123'
+        name: 'Profa',
+        surname: 'Profic',
+        password: bcrypt.hashSync('12345', +process.env.BCRYPT_SALT_ROUNDS)
       }
     })})
   .then(async()=>{
     const profId = await Professor.findOne({
-      where: {email:'milos@gmail.com'}
+      where: {email:'profa.profic1@gmail.com'}
     });
     return profId.id
   })
@@ -35,11 +36,11 @@ database.sync()
   })
   .then(()=>{
     Student.findOrCreate({
-      where : {email: 'andrijailic@gmail.com'},
+      where : {email: 'student.studentic.student1@gmail.com'},
       defaults: {
-        name: 'Andrija',
-        surname: 'Ilic',
-        password: '123'
+        name: 'Student',
+        surname: 'Studentic',
+        password: bcrypt.hashSync('12345', +process.env.BCRYPT_SALT_ROUNDS)
       }
     })
   })

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { createAttendance, deleteAttendance, listStudentsOnCourse, listCoursesOfStudent } = require('../controllers/attendance/attendanceController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
-router.post('/', createAttendance);
-router.delete('/:id', deleteAttendance);
-router.get('/course/:id', listStudentsOnCourse);
-router.get('/student/:id', listCoursesOfStudent);
+router.post('/', authenticateJWT, createAttendance);
+router.delete('/:id', authenticateJWT, deleteAttendance);
+router.get('/course/:id', authenticateJWT, listStudentsOnCourse);
+router.get('/student/:id', authenticateJWT, listCoursesOfStudent);
 
 module.exports = router;
 
@@ -23,6 +24,8 @@ module.exports = router;
  *   post:
  *     summary: Creates a new attendance instance.
  *     tags: [Attendance Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -55,6 +58,8 @@ module.exports = router;
  *   delete:
  *     summary: Deletes a existing attendance.
  *     tags: [Attendance Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -83,6 +88,8 @@ module.exports = router;
  *   get:
  *     summary: Gets all students per given course.
  *     tags: [Attendance Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -108,6 +115,8 @@ module.exports = router;
  *   get:
  *     summary: Gets all courses per given student.
  *     tags: [Attendance Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id

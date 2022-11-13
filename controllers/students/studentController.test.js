@@ -32,11 +32,11 @@ describe('Student Controller', () => {
       const loginRes = await login("profa.profic1@gmail.com",'12345');
 
       const res = await request(app)
-        .get('/students/3')
+        .get('/students/1')
         .auth(loginRes.body.jwt, { type: 'bearer' });
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-      expect(res.body).toMatchObject(mockedStudentsData[2]);
+      expect(res.body).toMatchObject(mockedStudentsData[0]);
     })
   });
 
