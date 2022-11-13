@@ -8,17 +8,17 @@
   },
   {
     "id": 2,
-    "email": "test2@mock.com",
-    "name": "Bob",
-    "surname": "Bobic",
-    "password": "123"
+    "email": "andrew.adrewic.student2@gmail.com",
+    "name": "Andrew",
+    "surname": "Andrewic",
+    "password": "$2b$10$1hcd0OfQgAVDFOQReuEK9usxmXfsc/dM0SDjYXgI2llmSHTX7hOe6"
   },
   {
     "id": 3,
-    "email": "carl@mock.com",
-    "name": "Carl",
-    "surname": "Carlic",
-    "password": "123"
+    "email": "student.studentic.student1@gmail.com",
+    "name": "Student",
+    "surname": "Studentic",
+    "password": "$2b$10$1hcd0OfQgAVDFOQReuEK9usxmXfsc/dM0SDjYXgI2llmSHTX7hOe6"
   },
   {
     "id": 4,

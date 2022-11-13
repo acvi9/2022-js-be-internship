@@ -25,7 +25,7 @@ const authenticateJWT = (req, res, next) => {
                 return res.sendStatus(STATUS_CODES.FORBIDDEN);
         });
     } else {
-        res.sendStatus(401);
+        res.sendStatus(STATUS_CODES.UNAUTHORIZED);
     }
 };
 
