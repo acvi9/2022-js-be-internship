@@ -28,6 +28,8 @@ module.exports = router;
  *   get:
  *     summary: Lists all terms.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     responses:
  *       200:
  *         description: Example returned
@@ -50,6 +52,8 @@ module.exports = router;
  *   get:
  *     summary: List specific term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -78,6 +82,8 @@ module.exports = router;
  *   post:
  *     summary: Create a term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -112,6 +118,8 @@ module.exports = router;
  *   put:
  *     summary: Updates an existing term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -152,6 +160,8 @@ module.exports = router;
  *   delete:
  *     summary: Deletes a existing term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id

@@ -23,7 +23,7 @@ const findStudentByID = async (req, res) => {
     });
     if (student) {
       if(req.userData.role=='student' && req.userData.id != ID)
-        res.sendStatus(STATUS_CODES.FORBIDDEN);
+        return res.sendStatus(STATUS_CODES.FORBIDDEN);
         
       res.status(STATUS_CODES.STATUS_OK).json(student);
     } else {

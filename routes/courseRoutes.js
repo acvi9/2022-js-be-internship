@@ -85,6 +85,8 @@ module.exports = router;
  *   post:
  *     summary: Create a new course.
  *     tags: [Course Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -96,9 +98,9 @@ module.exports = router;
  *               description:
  *                 type: string
  *               espb:
- *                 type: string
+ *                 type: integer
  *               professorId:
- *                 type: string
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Course created.
@@ -124,6 +126,8 @@ module.exports = router;
  *   put:
  *     summary: Update existing course.
  *     tags: [Course Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -171,6 +175,8 @@ module.exports = router;
  *   delete:
  *     summary: Delete existing course.
  *     tags: [Course Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *       - name: id
  *         in: path

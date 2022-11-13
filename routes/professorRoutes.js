@@ -49,6 +49,8 @@ module.exports = router;
  *   post:
  *     summary: create a professor.
  *     tags: [Professor Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -117,6 +119,8 @@ module.exports = router;
  *   put:
  *     summary: Updates an existing professor.
  *     tags: [Professor Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -160,6 +164,8 @@ module.exports = router;
  *   delete:
  *     summary: Deletes a existing professor.
  *     tags: [Professor Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
