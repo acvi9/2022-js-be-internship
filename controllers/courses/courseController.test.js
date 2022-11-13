@@ -37,7 +37,7 @@ describe('Courses Controller', () => {
 
       //login
       const loginRes = await login("profa.profic1@gmail.com",'12345');
-      console.log(loginRes.body);
+      //console.log(loginRes.body);
       let lastID = mockedCoursesData[mockedCoursesData.length - 1].id;
 
       let newCourse = {
@@ -54,7 +54,6 @@ describe('Courses Controller', () => {
       const res = await request(app)
         .post('/courses')
         .auth(loginRes.body.jwt, { type: 'bearer' })
-        //.set('Authorization', `Bearer ${login.res}`)
         .send(newCourse);
 
       let lastItem = mockedCoursesData[mockedCoursesData.length - 1];
@@ -73,7 +72,7 @@ describe('Courses Controller', () => {
 
       //login
       const loginRes = await login("profa.profic1@gmail.com",'12345');
-      console.log(loginRes.body);
+      //console.log(loginRes.body);
 
       const res = await request(app)
         .delete('/courses/1')
@@ -88,7 +87,7 @@ describe('Courses Controller', () => {
     test('Should update a course with ID = 1', async () => {
 
       const loginRes = await login("profa.profic1@gmail.com",'12345');
-      console.log(loginRes.body);
+      //console.log(loginRes.body);
 
       let updatedCourse = {
         'id': 2,

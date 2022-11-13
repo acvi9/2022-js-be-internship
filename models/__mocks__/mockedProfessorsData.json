@@ -33,40 +33,5 @@
     "name": "Oscar",
     "surname": "Oscaric",
     "password": "123"
-  },
-  {
-    "id": 6,
-    "email": "paul@Profmock.com",
-    "name": "Paul",
-    "surname": "Paulic",
-    "password": "123"
-  },
-  {
-    "id": 7,
-    "email": "quintn@Profmock.com",
-    "name": "Quintn",
-    "surname": "Quintnic",
-    "password": "123"
-  },
-  {
-    "id": 8,
-    "email": "robert@Profmock.com",
-    "name": "Robert",
-    "surname": "Robertic",
-    "password": "123"
-  },
-  {
-    "id": 9,
-    "email": "sandra@Profmock.com",
-    "name": "Sandra",
-    "surname": "Sandraic",
-    "password": "123"
-  },
-  {
-    "id": 10,
-    "email": "tom@Profmock.com",
-    "name": "Tom",
-    "surname": "Tomic",
-    "password": "123"
   }
 ]

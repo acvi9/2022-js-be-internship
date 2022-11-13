@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { listAllProfessors, findProfessorByID, createProfessor, updateProfessor, deleteProfessor } = require('../controllers/professors/professorController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
 router.get('/', listAllProfessors);
 router.get('/:id', findProfessorByID);
-router.post('/', createProfessor);
-router.put('/:id', updateProfessor);
-router.delete('/:id', deleteProfessor);
+router.post('/', authenticateJWT, createProfessor);
+router.put('/:id', authenticateJWT, updateProfessor);
+router.delete('/:id', authenticateJWT, deleteProfessor);
 
 module.exports = router;
 

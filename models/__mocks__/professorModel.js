@@ -3,10 +3,10 @@ const mockedProfessorsData = require('./mockedProfessorsData.json');
 
 const mockProfessor = mockedSequelize.define('professor', {
   id: 1,
-  email: 'test@profExample.com',
-  name: 'profTest',
-  surname: 'profTestic',
-  password: '123'
+  email: 'profa.profic1@gmail.com',
+  name: 'Profa',
+  surname: 'Profic',
+  password: '12345'
 },
 {
   timestamps: false
@@ -15,7 +15,16 @@ const mockProfessor = mockedSequelize.define('professor', {
 // eslint-disable-next-line no-unused-vars
 mockedSequelize.models.professor.$queryInterface.$useHandler(function (query, queryOptions, done) {
   if (query === 'findOne') {
-    return Promise.resolve(mockedProfessorsData[0]);
+    //console.log(queryOptions[0].where.id);
+    console.log(queryOptions[0]);
+    if(queryOptions[0].where.id){
+      const id = (queryOptions[0].where.id);
+      return Promise.resolve(mockedProfessorsData[id-1]);
+    }
+    else{
+      return Promise.resolve(mockedProfessorsData[0]);
+    }
+    //return Promise.resolve(mockedProfessorsData[0]);
   }
   if (query === 'findAll') {
     return Promise.resolve(mockedProfessorsData);

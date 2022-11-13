@@ -13,10 +13,9 @@ const login = async(req,res) => {
         model = Professor;
     else
         return res.sendStatus(STATUS_CODES.NOT_FOUND);
-
     try {
         const user = await model.findOne({
-        where: {email: req.body.email},
+            where: {email: req.body.email},
         }); 
         if(!user){
             return res.sendStatus(STATUS_CODES.NOT_FOUND);

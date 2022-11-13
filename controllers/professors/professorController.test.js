@@ -4,6 +4,7 @@ const app = require('../../app');
 const {STATUS_CODES} = require('../../constants');
 const mockedProfessorsData = require('../../models/__mocks__/mockedProfessorsData.json');
 require('dotenv').config();
+const {login} = require('../../utils/testingUtils');
 
 jest.mock('../../config/db-config');
 jest.mock('../../models/professorModel');
@@ -23,15 +24,18 @@ describe('Professor Controller', () => {
   describe('GET - Find By ID', () => {
     test('Should return a professor with ID = 3', async () => {
       const res = await request(app)
-        .get('/professors/3');
+        .get('/professors/2');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-      expect(res.body).toMatchObject({'professor':mockedProfessorsData[2]});
+      expect(res.body).toMatchObject({'professor':mockedProfessorsData[1]});
     })
   });
 
   describe('POST - Create a new professor', () => {
     test('Should create a new professor', async () => {
+
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
 
       let lastID = mockedProfessorsData[mockedProfessorsData.length - 1].id;
 
@@ -47,6 +51,7 @@ describe('Professor Controller', () => {
 
       const res = await request(app)
         .post('/professors')
+        .auth(loginRes.body.jwt, { type: 'bearer' })
         .send(newProf);
 
       let lastItem = mockedProfessorsData[mockedProfessorsData.length - 1];
@@ -63,8 +68,11 @@ describe('Professor Controller', () => {
   describe('DELETE - Delete a professor', () => {
     test('Should delete a professor with ID = 3', async () => {
 
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+
       const res = await request(app)
-        .delete('/professors/3');
+        .delete('/professors/1')
+        .auth(loginRes.body.jwt, { type: 'bearer' });
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(res.body).toMatchObject({'message':'Professor deleted!'});
@@ -74,8 +82,10 @@ describe('Professor Controller', () => {
   describe('PUT - Update a professor', () => {
     test('Should update a professor with ID = 3', async () => {
 
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+
       let updatedProf = {
-        'id': 3,
+        'id': 1,
         'name': 'Updated Prof',
         'surname': 'Updated Surname',
         'email': 'update@gmail.com',
@@ -84,9 +94,8 @@ describe('Professor Controller', () => {
 
       const res = await request(app)
         .put(`/professors/${updatedProf.id}`)
-        .send({
-          'message': 'Professor updated!',
-        });
+        .auth(loginRes.body.jwt, { type: 'bearer' })
+        .send(updatedProf);
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(res.body).toMatchObject({'message':'Professor updated!'})
