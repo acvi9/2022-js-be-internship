@@ -20,13 +20,13 @@ describe('Attendance Controller', () => {
   describe('POST - Create a new attendance', () => {
     test('Should create a new attendance', async () => {
   
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
       let lastID = mockedAttendanceData[mockedAttendanceData.length - 1].id;
   
       let newAttendance = {
         'id': lastID + 1,
         'studentId': 1,
-        'courseId': 1
+        'courseId': 3
       }
       const res = await request(app)
         .post('/attendance')
@@ -44,7 +44,7 @@ describe('Attendance Controller', () => {
   describe('DELETE - Delete an attendance', () => {
     test('Should delete an attendance with ID = 1', async () => {
   
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
       const res = await request(app)
         .delete('/attendance/1')
         .auth(loginRes.body.jwt, { type: 'bearer' });
@@ -59,7 +59,7 @@ describe('Attendance Controller', () => {
   describe('GET - All students taking a course', () => {
     test('Should return a list of students taking a course', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const response = await request(app)
         .get('/attendance/course/1')
@@ -76,7 +76,7 @@ describe('Attendance Controller', () => {
   describe('GET - All courses taken by a student', () => {
     test('Should return a list of courses taken by a student', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const response = await request(app)
         .get('/attendance/student/1')
