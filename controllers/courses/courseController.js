@@ -15,12 +15,14 @@ const findCourseByID = async (req, res) => {
 
     let ID = req.params.id;
 
+    console.log("by id");
+
     const course = await Course.findOne({
       where: {id: ID}
     });
 
     if(course){
-      res.status(STATUS_CODES.STATUS_OK).json({course});
+      res.status(STATUS_CODES.STATUS_OK).json(course);
     }else
       res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
   } catch (error) {
@@ -80,8 +82,8 @@ const updateCourse = async (req, res) => {
       where: {id: ID}
     });
     if (course) {
-      console.log(req.userData.id);
-      console.log(course.professorId);
+      //console.log(req.userData.id);
+      //console.log(course.professorId);
       if(req.userData.id == course.professorId){
         await Course.update({
           name: req.body.name,

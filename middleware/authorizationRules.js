@@ -32,11 +32,11 @@ module.exports = {
     listStudentsOnCourse: ["professor"],
     listCoursesOfStudent: ["student","professor"],
     //Exams
-    listStudentExams: [],
-    listAllExams: [],
-    findExamByID: [],
-    createExam: [],
-    updateExam: [],
-    deleteExam: [],
-    examAnalytics: []
+    listAllExams: ["professor"],
+    findExamByID: ["professor"],
+    createExam: ["professor"],
+    updateExam: ["professor"],
+    deleteExam: ["professor"],
+    examAnalytics: ["professor"],
+    listStudentExams: ["student","professor"],
 }
