@@ -15,8 +15,6 @@ const findCourseByID = async (req, res) => {
 
     let ID = req.params.id;
 
-    console.log("by id");
-
     const course = await Course.findOne({
       where: {id: ID}
     });

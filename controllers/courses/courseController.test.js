@@ -28,7 +28,7 @@ describe('Courses Controller', () => {
         .get('/courses/1');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-      expect(res.body).toMatchObject({'course':mockedCoursesData[0]});
+      expect(res.body).toMatchObject(mockedCoursesData[0]);
     })
   });
 
@@ -50,7 +50,6 @@ describe('Courses Controller', () => {
 
       mockedCoursesData.push(newCourse);
 
-      console.log("pre slanja ");
       const res = await request(app)
         .post('/courses')
         .auth(loginRes.body.jwt, { type: 'bearer' })
