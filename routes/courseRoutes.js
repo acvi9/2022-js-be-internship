@@ -53,7 +53,7 @@ module.exports = router;
  *     summary: Get specific course.
  *     tags: [Course Routes]
  *     parameters:
- *       - name: courseId
+ *       - name: id
  *         in: path
  *         description: ID of course to return
  *         required: true

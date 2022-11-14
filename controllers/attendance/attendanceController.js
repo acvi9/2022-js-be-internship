@@ -9,8 +9,21 @@ const createAttendance = async (req, res) => {
       studentId: req.body.studentId,
       courseId: req.body.courseId,
     }
-    const attendance = await Attendance.create(tempAttendance);
-    res.status(STATUS_CODES.STATUS_OK).json(attendance);
+    const attendances = await Attendance.findAll();
+    let exists = false;
+    for(let a in attendances){
+      if(tempAttendance ===a){
+        exists = true;
+      }
+    }
+    
+    if(exists === false){
+      res.status(STATUS_CODES.ALREADY_EXISTS).json({message: 'already exists'})
+    }
+    else{
+      const attendance = await Attendance.create(tempAttendance);
+      res.status(STATUS_CODES.STATUS_OK).json(attendance);
+    }
   } catch (error) {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
   }
