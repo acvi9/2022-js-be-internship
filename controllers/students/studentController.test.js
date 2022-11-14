@@ -15,7 +15,7 @@ describe('Student Controller', () => {
   describe('GET - List All students', () => {
     test('Should return all students', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const response = await request(app)
         .get('/students')
@@ -29,7 +29,7 @@ describe('Student Controller', () => {
   describe('GET - Find By ID', () => {
     test('Should return a student with ID = 3', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const res = await request(app)
         .get('/students/1')
@@ -43,7 +43,7 @@ describe('Student Controller', () => {
   describe('POST - Create a new student', () => {
     test('Should create a new student', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       let lastID = mockedStudentsData[mockedStudentsData.length - 1].id;
 
@@ -76,7 +76,7 @@ describe('Student Controller', () => {
   describe('DELETE - Delete a student', () => {
     test('Should delete a student with ID = 1', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const res = await request(app)
         .delete('/students/1')
@@ -90,7 +90,7 @@ describe('Student Controller', () => {
   describe('PUT - Update a student', () => {
     test('Should update a student with ID = 3', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       let updatedStudent = {
         'id': 3,

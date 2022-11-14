@@ -15,9 +15,7 @@ describe('Terms Controller', () => {
   describe('GET - List All terms', () => {
     test('Should return all tests', async () => {
 
-      //login
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const response = await request(app)
         .get('/terms')
@@ -31,8 +29,7 @@ describe('Terms Controller', () => {
   describe('GET - Find By ID', () => {
     test('Should return a term with ID = 1', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const res = await request(app)
         .get('/terms/1')
@@ -46,8 +43,7 @@ describe('Terms Controller', () => {
   describe('POST - Create a new term', () => {
     test('Should create a new term', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       let lastID = mockedTermsData[mockedTermsData.length - 1].id;
 
@@ -78,8 +74,7 @@ describe('Terms Controller', () => {
   describe('DELETE - Delete a term', () => {
     test('Should delete a term with ID = 1', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const res = await request(app)
         .delete('/terms/1')
@@ -93,8 +88,7 @@ describe('Terms Controller', () => {
   describe('PUT - Update a term', () => {
     test('Should update a term with ID = 1', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       let updateTerm = {
         'id': 1,

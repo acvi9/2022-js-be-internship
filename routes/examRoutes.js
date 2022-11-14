@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { listAllExams, findExamByID, createExam, updateExam, deleteExam, listStudentExams, examAnalytics} = require('../controllers/exams/examController');
-const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
 router.get('/', listAllExams);
 router.get('/:id', findExamByID);

@@ -72,22 +72,13 @@ const updateStudent = async (req, res) => {
   try {
 
     let ID = req.params.id;
-    //const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
-    // const student = await Student.update({
-    //   name: req.body.name,
-    //   surname: req.body.surname,
-    //   email: req.body.email,
-    //   password: hash,
-    // }, {
-    //   where: {id: ID},
-    // });
+
     const student = await Student.findOne({
-        where: {id: ID}
+      where: {id: ID}
     });
     if (student) {
-      //console.log(req.body);
-      //console.log(student.name);
-      if(req.userData.role=="student"){
+
+      if(req.userData.role=='student'){
         if(req.userData.id == ID){
           student.password = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
         }
@@ -100,7 +91,6 @@ const updateStudent = async (req, res) => {
         student.surname = req.body.surname;
         student.password = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
         student.email = req.body.email;
-        //generisanje mejla posebno
       }
       await student.save();
       res.status(STATUS_CODES.STATUS_OK).json({message: 'Student updated!'});

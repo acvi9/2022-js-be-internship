@@ -65,7 +65,7 @@ describe('Attendance Controller', () => {
         .get('/attendance/course/1')
         .auth(loginRes.body.jwt, { type: 'bearer' });
 
-      //console.log(response.body);
+
 
       expect(response.status).toBe(STATUS_CODES.STATUS_OK);
       expect(response.body[0]).toEqual(mockedStudentData[0]);

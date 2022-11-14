@@ -18,12 +18,7 @@ const mockStudent = mockedSequelize.define('student', {
 mockedSequelize.models.student.$queryInterface.$useHandler(function (query, queryOptions, done) {
   if (query === 'findOne') {
     const id = (queryOptions[0].where.id);
-    //console.log(id);
-    // if(id)
-    //   return Promise.resolve(mockedStudentsData[id-1]);
     return mockedSequelize.models.student.build({id:+id});
-    // else
-    //return Promise.resolve(mockedStudentsData[0]);
   }
   if (query === 'findAll') {
     return Promise.resolve(mockedStudentsData);

@@ -72,7 +72,6 @@ const listCoursesOfStudent = async (req, res) => {
       where: {studentId: ID}
     });
 
-    //console.log(courses);
 
     let courseNames = [];
 
@@ -81,7 +80,7 @@ const listCoursesOfStudent = async (req, res) => {
       let courseName = await Course.findOne({
         where: {id: courses[i].courseId, }
       });
-      //console.log(courseName);
+
       courseNames.push(courseName);
 
     }

@@ -14,11 +14,8 @@ const authenticateJWT = (req, res, next) => {
       }
       let stack = req.route.stack;
       const functionName = stack[stack.length-1].name;
-      //req.role = data.role;
-      //console.log(functionName);
-      //console.log(authorizationRules[data.role]);
+
       req.userData = data;
-      //console.log(data);
       if(authorizationRules[functionName].includes(data.role))
         next();
       else      

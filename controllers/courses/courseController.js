@@ -80,8 +80,7 @@ const updateCourse = async (req, res) => {
       where: {id: ID}
     });
     if (course) {
-      //console.log(req.userData.id);
-      //console.log(course.professorId);
+
       if(req.userData.id == course.professorId){
         await Course.update({
           name: req.body.name,
@@ -91,7 +90,7 @@ const updateCourse = async (req, res) => {
         }, {
           where: {id: ID},
         });
-        res.status(STATUS_CODES.STATUS_OK).json({message:"Course updated!"});
+        res.status(STATUS_CODES.STATUS_OK).json({message:'Course updated!'});
       }
       else{
         res.sendStatus(STATUS_CODES.FORBIDDEN);
@@ -112,23 +111,3 @@ module.exports = {
   updateCourse
 }
 
-//   try {
-
-//     let ID = req.params.id;
-    
-//     const course = await Course.update({
-//       name: req.body.name,
-//       description: req.body.description,
-//       espb: req.body.espb,
-//       professorId: req.body.professorId,
-//     }, {
-//       where: {id: ID},
-//     });
-//     if (course) {
-//       res.status(STATUS_CODES.STATUS_OK).json({message: 'Course updated!'});
-//     } else {
-//       res.status(STATUS_CODES.NOT_FOUND).json({message: 'Course not found'});
-//     }
-//   } catch (error) {
-//     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
-//   }

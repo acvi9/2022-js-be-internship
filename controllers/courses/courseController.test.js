@@ -35,9 +35,7 @@ describe('Courses Controller', () => {
   describe('POST - Create a new course', () => {
     test('Should create a new course', async () => {
 
-      //login
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
       let lastID = mockedCoursesData[mockedCoursesData.length - 1].id;
 
       let newCourse = {
@@ -69,9 +67,7 @@ describe('Courses Controller', () => {
   describe('DELETE - Delete a course', () => {
     test('Should delete a course with ID = 1', async () => {
 
-      //login
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const res = await request(app)
         .delete('/courses/1')
@@ -85,8 +81,7 @@ describe('Courses Controller', () => {
   describe('PUT - Update a course', () => {
     test('Should update a course with ID = 1', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       let updatedCourse = {
         'id': 2,

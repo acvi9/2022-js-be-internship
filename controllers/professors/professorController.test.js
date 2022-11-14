@@ -34,8 +34,7 @@ describe('Professor Controller', () => {
   describe('POST - Create a new professor', () => {
     test('Should create a new professor', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
-      //console.log(loginRes.body);
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       let lastID = mockedProfessorsData[mockedProfessorsData.length - 1].id;
 
@@ -68,7 +67,7 @@ describe('Professor Controller', () => {
   describe('DELETE - Delete a professor', () => {
     test('Should delete a professor with ID = 3', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       const res = await request(app)
         .delete('/professors/1')
@@ -82,7 +81,7 @@ describe('Professor Controller', () => {
   describe('PUT - Update a professor', () => {
     test('Should update a professor with ID = 3', async () => {
 
-      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      const loginRes = await login('profa.profic1@gmail.com','12345');
 
       let updatedProf = {
         'id': 1,
