@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { listAllCourses, createCourse, deleteCourse, updateCourse, findByID } = require('../controllers/courses/courseController');
+const { listAllCourses, createCourse, deleteCourse, updateCourse, findCourseByID } = require('../controllers/courses/courseController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
 router.get('/', listAllCourses);
-router.get('/:id', findByID);
-router.post('/', createCourse);
-router.put('/:id', updateCourse);
-router.delete('/:id', deleteCourse);
+router.get('/:id', findCourseByID);
+router.post('/', authenticateJWT, createCourse);
+router.put('/:id', authenticateJWT, updateCourse);
+router.delete('/:id', authenticateJWT, deleteCourse);
 
 
 module.exports = router;
@@ -52,7 +53,7 @@ module.exports = router;
  *     summary: Get specific course.
  *     tags: [Course Routes]
  *     parameters:
- *       - name: courseId
+ *       - name: id
  *         in: path
  *         description: ID of course to return
  *         required: true
@@ -84,6 +85,8 @@ module.exports = router;
  *   post:
  *     summary: Create a new course.
  *     tags: [Course Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -95,9 +98,9 @@ module.exports = router;
  *               description:
  *                 type: string
  *               espb:
- *                 type: string
+ *                 type: integer
  *               professorId:
- *                 type: string
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Course created.
@@ -123,6 +126,8 @@ module.exports = router;
  *   put:
  *     summary: Update existing course.
  *     tags: [Course Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -170,6 +175,8 @@ module.exports = router;
  *   delete:
  *     summary: Delete existing course.
  *     tags: [Course Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *       - name: id
  *         in: path

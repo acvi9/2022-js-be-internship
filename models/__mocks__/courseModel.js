@@ -1,7 +1,7 @@
 const mockedSequelize = require('../../config/__mocks__/db-config');
 const mockedCoursesData = require('./mockedCoursesData.json');
 
-const mockCourse = mockedSequelize.define('Course',  {
+const mockCourse = mockedSequelize.define('course',  {
   id: 1,
   name: 'TEST',
   description: 'We all know what maths is.',
@@ -13,9 +13,10 @@ const mockCourse = mockedSequelize.define('Course',  {
 });
 
 // eslint-disable-next-line no-unused-vars
-mockedSequelize.models.Course.$queryInterface.$useHandler(function(query, queryOptions, done) {
+mockedSequelize.models.course.$queryInterface.$useHandler(function(query, queryOptions, done) {
   if (query === 'findOne') {
-    return Promise.resolve(mockedCoursesData[0]);
+    const id = (queryOptions[0].where.id);
+    return Promise.resolve(mockedCoursesData[id-1]);
   }
   if (query === 'findAll') {
     return Promise.resolve(mockedCoursesData);

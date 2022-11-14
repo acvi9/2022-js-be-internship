@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { listAllTerms, findByID, createTerm, deleteTerm, updateTerm } = require('../controllers/terms/termsController');
+const { listAllTerms, findTermByID, createTerm, deleteTerm, updateTerm } = require('../controllers/terms/termsController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
-router.get('/', listAllTerms);
-router.get('/:id', findByID);
-router.post('/', createTerm);
-router.put('/:id', updateTerm);
-router.delete('/:id', deleteTerm);
+router.get('/', authenticateJWT, listAllTerms);
+router.get('/:id',authenticateJWT, findTermByID);
+router.post('/', authenticateJWT, createTerm);
+router.put('/:id', authenticateJWT, updateTerm);
+router.delete('/:id', authenticateJWT, deleteTerm);
 
 
 module.exports = router;
@@ -27,6 +28,8 @@ module.exports = router;
  *   get:
  *     summary: Lists all terms.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     responses:
  *       200:
  *         description: Example returned
@@ -49,6 +52,8 @@ module.exports = router;
  *   get:
  *     summary: List specific term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -77,6 +82,8 @@ module.exports = router;
  *   post:
  *     summary: Create a term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -111,6 +118,8 @@ module.exports = router;
  *   put:
  *     summary: Updates an existing term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -151,6 +160,8 @@ module.exports = router;
  *   delete:
  *     summary: Deletes a existing term.
  *     tags: [Terms Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id

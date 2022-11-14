@@ -3,9 +3,12 @@ const request = require('supertest');
 const app = require('../../app');
 const mockedCoursesData = require('../../models/__mocks__/mockedCoursesData.json');
 const {STATUS_CODES} = require('../../constants');
+require('dotenv').config();
+const {login} = require('../../utils/testingUtils');
 
 jest.mock('../../config/db-config');
 jest.mock('../../models/courseModel');
+jest.mock('../../models/professorModel')
 
 describe('Courses Controller', () => {
 
@@ -25,13 +28,16 @@ describe('Courses Controller', () => {
         .get('/courses/1');
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
-      expect(res.body).toMatchObject({'course':mockedCoursesData[0]});
+      expect(res.body).toMatchObject(mockedCoursesData[0]);
     })
   });
 
   describe('POST - Create a new course', () => {
     test('Should create a new course', async () => {
 
+      //login
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
       let lastID = mockedCoursesData[mockedCoursesData.length - 1].id;
 
       let newCourse = {
@@ -46,6 +52,7 @@ describe('Courses Controller', () => {
 
       const res = await request(app)
         .post('/courses')
+        .auth(loginRes.body.jwt, { type: 'bearer' })
         .send(newCourse);
 
       let lastItem = mockedCoursesData[mockedCoursesData.length - 1];
@@ -60,10 +67,15 @@ describe('Courses Controller', () => {
   });
 
   describe('DELETE - Delete a course', () => {
-    test('Should delete a course with ID = 3', async () => {
+    test('Should delete a course with ID = 1', async () => {
+
+      //login
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
 
       const res = await request(app)
-        .delete('/courses/3');
+        .delete('/courses/1')
+        .auth(loginRes.body.jwt, { type: 'bearer' });
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(res.body).toMatchObject({'message':'Course deleted!'});
@@ -71,10 +83,13 @@ describe('Courses Controller', () => {
   })
 
   describe('PUT - Update a course', () => {
-    test('Should update a course with ID = 3', async () => {
+    test('Should update a course with ID = 1', async () => {
+
+      const loginRes = await login("profa.profic1@gmail.com",'12345');
+      //console.log(loginRes.body);
 
       let updatedCourse = {
-        'id': 3,
+        'id': 2,
         'name': 'Software Testing',
         'description': 'Application testing for Software Engineering.',
         'espb': 8,
@@ -83,9 +98,8 @@ describe('Courses Controller', () => {
 
       const res = await request(app)
         .put(`/courses/${updatedCourse.id}`)
-        .send({
-          'message': 'Course updated!',
-        });
+        .auth(loginRes.body.jwt, { type: 'bearer' })
+        .send(updatedCourse);
 
       expect(res.statusCode).toBe(STATUS_CODES.STATUS_OK);
       expect(res.body).toMatchObject({'message':'Course updated!'})

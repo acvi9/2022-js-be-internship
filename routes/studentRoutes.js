@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { listAllStudents, findByID, createStudent, deleteStudent, updateStudent } = require('../controllers/students/studentController');
+const { listAllStudents, findStudentByID, createStudent, deleteStudent, updateStudent } = require('../controllers/students/studentController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
-router.get('/', listAllStudents);
-router.get('/:id', findByID);
-router.post('/', createStudent);
-router.put('/:id', updateStudent);
-router.delete('/:id', deleteStudent);
+
+router.get('/', authenticateJWT, listAllStudents);
+router.get('/:id', authenticateJWT, findStudentByID);
+router.post('/', authenticateJWT, createStudent);
+router.put('/:id', authenticateJWT, updateStudent);
+router.delete('/:id', authenticateJWT, deleteStudent);
 
 
 module.exports = router;
@@ -27,6 +29,8 @@ module.exports = router;
  *   get:
  *     summary: Lists all students.
  *     tags: [Student Routes]
+ *     security:
+ *       - Bearer: []
  *     responses:
  *       200:
  *         description: Example returned
@@ -50,6 +54,8 @@ module.exports = router;
  *   get:
  *     summary: Find a student by ID.
  *     tags: [Student Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -80,6 +86,8 @@ module.exports = router;
  *   post:
  *     summary: Creates a new student.
  *     tags: [Student Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -117,6 +125,8 @@ module.exports = router;
  *   put:
  *     summary: Updates an existing student.
  *     tags: [Student Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -160,6 +170,8 @@ module.exports = router;
  *   delete:
  *     summary: Deletes a existing student.
  *     tags: [Student Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id

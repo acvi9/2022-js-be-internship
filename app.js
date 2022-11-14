@@ -6,11 +6,12 @@ const CourseRoute = require('./routes/courseRoutes');
 const AttendanceRoute = require('./routes/attendanceRoutes');
 const ExamRoute = require('./routes/examRoutes');
 const LoginRoute = require('./routes/loginRoutes')
-
-const app = express();
+const app = express()
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json())
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello world!');

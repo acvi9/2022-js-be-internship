@@ -9,8 +9,11 @@ const createAttendance = async (req, res) => {
       studentId: req.body.studentId,
       courseId: req.body.courseId,
     }
+    
     const attendance = await Attendance.create(tempAttendance);
     res.status(STATUS_CODES.STATUS_OK).json(attendance);
+    
+
   } catch (error) {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
   }
@@ -52,7 +55,7 @@ const listStudentsOnCourse = async (req, res) => {
       studentNames.push(studentName);
     }
 
-    res.status(STATUS_CODES.STATUS_OK).json({studentNames});
+    res.status(STATUS_CODES.STATUS_OK).json(studentNames);
   } catch (error) {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
   }
@@ -61,9 +64,15 @@ const listStudentsOnCourse = async (req, res) => {
 const listCoursesOfStudent = async (req, res) => {
   try {
     let ID = req.params.id;
+
+    if(req.userData.role=='student' && req.userData.id!=ID)
+      return res.sendStatus(STATUS_CODES.FORBIDDEN);
+
     let courses = await Attendance.findAll({
-      where: {studentId: ID, }
+      where: {studentId: ID}
     });
+
+    //console.log(courses);
 
     let courseNames = [];
 
@@ -72,12 +81,12 @@ const listCoursesOfStudent = async (req, res) => {
       let courseName = await Course.findOne({
         where: {id: courses[i].courseId, }
       });
-
+      //console.log(courseName);
       courseNames.push(courseName);
 
     }
 
-    res.status(STATUS_CODES.STATUS_OK).json({courseNames});
+    res.status(STATUS_CODES.STATUS_OK).json(courseNames);
   } catch (error) {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(error.message);
   }

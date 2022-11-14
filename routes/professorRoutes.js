@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { listAllProfessors, findByID, createProfessor, updateProfessor, deleteProfessor } = require('../controllers/professors/professorController');
+const { listAllProfessors, findProfessorByID, createProfessor, updateProfessor, deleteProfessor } = require('../controllers/professors/professorController');
+const {authenticateJWT} = require('../middleware/authorizationMiddleware');
 
 router.get('/', listAllProfessors);
-router.get('/:id', findByID);
-router.post('/', createProfessor);
-router.put('/:id', updateProfessor);
-router.delete('/:id', deleteProfessor);
+router.get('/:id', findProfessorByID);
+router.post('/', authenticateJWT, createProfessor);
+router.put('/:id', authenticateJWT, updateProfessor);
+router.delete('/:id', authenticateJWT, deleteProfessor);
 
 module.exports = router;
 
@@ -48,6 +49,8 @@ module.exports = router;
  *   post:
  *     summary: create a professor.
  *     tags: [Professor Routes]
+ *     security:
+ *       - Bearer: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -116,6 +119,8 @@ module.exports = router;
  *   put:
  *     summary: Updates an existing professor.
  *     tags: [Professor Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id
@@ -159,6 +164,8 @@ module.exports = router;
  *   delete:
  *     summary: Deletes a existing professor.
  *     tags: [Professor Routes]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - in: path
  *        name: id

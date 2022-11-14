@@ -15,7 +15,7 @@ const listAllProfessors = async (req, res) => {
   }
 }
 
-const findByID = async (req, res) => {
+const findProfessorByID = async (req, res) => {
   try {
     let ID = req.params.id;
 
@@ -54,6 +54,8 @@ const deleteProfessor = async (req, res) => {
     
   try {
     let ID = req.params.id;
+    if(req.userData.id != ID)
+      return res.sendStatus(STATUS_CODES.FORBIDDEN);
     const professor = await Professor.destroy({
       where: {id: ID},
     });
@@ -71,6 +73,8 @@ const deleteProfessor = async (req, res) => {
 const updateProfessor = async (req, res) => {
   try {
     let ID = req.params.id;
+    if(req.userData.id != ID)
+      return res.sendStatus(STATUS_CODES.FORBIDDEN);
     const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT_ROUNDS);
     const professor = await Professor.update({
       name: req.body.name,
@@ -94,7 +98,7 @@ const updateProfessor = async (req, res) => {
 
 module.exports = {
   listAllProfessors,
-  findByID,
+  findProfessorByID,
   createProfessor,
   deleteProfessor,
   updateProfessor

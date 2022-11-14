@@ -1,22 +1,29 @@
 const mockedSequelize = require('../../config/__mocks__/db-config');
 const mockedStudentsData = require('./mockedStudentsData.json');
 
-const mockStudent = mockedSequelize.define('Student', {
+const mockStudent = mockedSequelize.define('student', {
   id: 1,
-  email: 'tessst@example.com',
-  name: 'test',
-  surname: 'jest',
-  password: '123'
+  email: 'andrew.adrewic.student1@gmail.com',
+  name: 'Andrew',
+  surname: 'Andrewic',
+  password: '$2b$10$1hcd0OfQgAVDFOQReuEK9usxmXfsc/dM0SDjYXgI2llmSHTX7hOe6'
 },
 {
   timestamps: false
 }
 );
 
+
 // eslint-disable-next-line no-unused-vars
-mockedSequelize.models.Student.$queryInterface.$useHandler(function (query, queryOptions, done) {
+mockedSequelize.models.student.$queryInterface.$useHandler(function (query, queryOptions, done) {
   if (query === 'findOne') {
-    return Promise.resolve(mockedStudentsData[2]);
+    const id = (queryOptions[0].where.id);
+    //console.log(id);
+    // if(id)
+    //   return Promise.resolve(mockedStudentsData[id-1]);
+    return mockedSequelize.models.student.build({id:+id});
+    // else
+    //return Promise.resolve(mockedStudentsData[0]);
   }
   if (query === 'findAll') {
     return Promise.resolve(mockedStudentsData);

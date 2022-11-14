@@ -8,6 +8,16 @@ module.exports = router;
 
 /**
  * @openapi
+ * components:
+ *   securitySchemes:
+ *     Bearer:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
+
+/**
+ * @openapi
  * tags:
  *   name: Login Routes
  *   description: All routes for login.
@@ -30,7 +40,7 @@ module.exports = router;
  *               password:
  *                 type: string
  *             example:
- *               email: mijo.zivko.student1@gmail.com
+ *               email: profa.profic1@gmail.com
  *               password: 12345
  *     responses:
  *       200:
