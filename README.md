@@ -54,6 +54,8 @@ DB_PASSWORD = "{{ YOUR_PASSWORD }}"
 DB_HOST = "localhost"
 DB_DIALECT = "mysql"
 PORT = 3000
+JWT_SECRET_KEY = "my$ecretkeY*2"
+BCRYPT_SALT_ROUNDS = 10
 ```
 **3 -** Create database:
 
