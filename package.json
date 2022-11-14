@@ -4,7 +4,6 @@
   "description": "Depending on the type of user, the system has different functionalities. Types of users are students and professors.",
   "main": "index.js",
   "scripts": {
-    "test-jest": "jest -i controllers/login/loginController.test.js -t",
     "test": "jest",
     "app-setup": "npm install && node db-sync.js && node ./seeders/initialSeeder.js && npm start",
     "start": "nodemon index.js"

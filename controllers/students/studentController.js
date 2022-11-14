@@ -41,7 +41,6 @@ const createStudent = async (req, res) => {
       name: req.body.name,
       surname: req.body.surname,
       email: req.body.email,
-      //email: req.body.name.toLowerCase()+'.'
       password: hash,
     }
     const student = await Student.create(tempStudent);
