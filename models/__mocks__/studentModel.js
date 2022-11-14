@@ -7,10 +7,10 @@ const mockStudent = mockedSequelize.define('student', {
   name: 'Andrew',
   surname: 'Andrewic',
   password: '$2b$10$1hcd0OfQgAVDFOQReuEK9usxmXfsc/dM0SDjYXgI2llmSHTX7hOe6'
-  },
-  {
-    timestamps: false
-  }
+},
+{
+  timestamps: false
+}
 );
 
 
@@ -21,9 +21,9 @@ mockedSequelize.models.student.$queryInterface.$useHandler(function (query, quer
     //console.log(id);
     // if(id)
     //   return Promise.resolve(mockedStudentsData[id-1]);
-      return mockedSequelize.models.student.build({id:+id});
+    return mockedSequelize.models.student.build({id:+id});
     // else
-      //return Promise.resolve(mockedStudentsData[0]);
+    //return Promise.resolve(mockedStudentsData[0]);
   }
   if (query === 'findAll') {
     return Promise.resolve(mockedStudentsData);
